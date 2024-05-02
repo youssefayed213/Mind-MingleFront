@@ -1,201 +1,192 @@
- <div class="container-fluid py-4">
-    <div class="row">
-      <div class="col-12">
-        <div class="card my-4">
-          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-            <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-              <h6 class="text-white text-capitalize ps-3">Users</h6>
+<div class="container-fluid py-4">
+  <div class="row">
+    <div class="col-12">
+      <div class="card my-4">
+        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+          <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+            <h6 class="text-white text-capitalize ps-3">Users</h6>
+          </div>
+        </div>
+        <div class="card-body px-0 pb-2">
+          <!-- Button to toggle new user form -->
+          <button class="btn btn-primary mb-3" (click)="toggleAddUserForm()">Add New User</button>
+
+          <!-- New user form (hidden by default) -->
+          <div *ngIf="showAddUserForm" class="card border-primary">
+            <div class="card-body">
+              <h6 class="text-primary">Add New User</h6>
+              <form (ngSubmit)="addUser()">
+                <div class="mb-3">
+                  <label class="form-label fw-bold">First Name</label>
+                  <input type="text" class="form-control fw-bold" name="nomUser" [(ngModel)]="newUser.nomUser" placeholder="Enter First Name">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Last Name</label>
+                  <input type="text" class="form-control fw-bold" name="prenomUser" [(ngModel)]="newUser.prenomUser" placeholder="Enter Last Name">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Email</label>
+                  <input type="email" class="form-control fw-bold" name="email" [(ngModel)]="newUser.email" placeholder="Enter Email">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Username</label>
+                  <input type="text" class="form-control fw-bold" name="username" [(ngModel)]="newUser.username" placeholder="Enter Username">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Password</label>
+                  <input type="password" class="form-control fw-bold" name="password" [(ngModel)]="newUser.password" placeholder="Enter Password">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Date of Birth</label>
+                  <input type="date" class="form-control fw-bold" name="dateNaiss" [(ngModel)]="newUser.dateNaiss" placeholder="Select Date of Birth">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Telephone</label>
+                  <input type="tel" class="form-control fw-bold" name="tel" [(ngModel)]="newUser.tel" placeholder="Enter Tel number">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Role</label>
+                  <select class="form-select" name="role" [(ngModel)]="newUser.role">
+                    <option value="Etudiant">Etudiant</option>
+                    <option value="Enseignant">Enseignant</option>
+                    <option value="Expert">Expert</option>
+                    <option value="Admin">Admin</option>
+                  </select>
+                </div>
+                <div *ngIf="newUser.role === 'Etudiant'" class="mb-3">
+                  <label class="form-label fw-bold">Student Number</label>
+                  <input type="number" class="form-control fw-bold" name="numEtudiant" [(ngModel)]="newUser.numEtudiant" placeholder="Enter Student Number">
+                </div>
+                <div *ngIf="newUser.role === 'Enseignant'" class="mb-3">
+                  <label class="form-label fw-bold">Teacher Number</label>
+                  <input type="number" class="form-control fw-bold" name="numEnseignant" [(ngModel)]="newUser.numEnseignant" placeholder="Enter Teacher Number">
+                </div>
+                <div *ngIf="newUser.role === 'Expert'" class="mb-3">
+                  <label class="form-label fw-bold">Expert Number</label>
+                  <input type="number" class="form-control fw-bold" name="numExpert" [(ngModel)]="newUser.numExpert" placeholder="Enter Expert Number">
+                </div>
+                <div class="text-end">
+                  <button type="submit" class="btn btn-primary">{{ editingUserId !== null ? 'Update' : 'Submit' }}</button>
+                  <button type="button" class="btn btn-outline-primary ms-2" (click)="cancelAddUser()">Cancel</button>
+                </div>
+              </form>
             </div>
           </div>
-          <div class="card-body px-0 pb-2">
-            <div class="table-responsive p-0">
-              <table class="table align-items-center mb-0">
-                <thead>
-                <tr>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Author</th>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Function</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Employed</th>
-                  <th class="text-secondary opacity-7"></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <td>
-                    <div class="d-flex px-2 py-1">
-                      <div>
-                        <img src="/assets/Back/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
-                      </div>
-                      <div class="d-flex flex-column justify-content-center">
-                        <h6 class="mb-0 text-sm">John Michael</h6>
-                        <p class="text-xs text-secondary mb-0">john@creative-tim.com</p>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <p class="text-xs font-weight-bold mb-0">Manager</p>
-                    <p class="text-xs text-secondary mb-0">Organization</p>
-                  </td>
-                  <td class="align-middle text-center text-sm">
-                    <span class="badge badge-sm bg-gradient-success">Online</span>
-                  </td>
-                  <td class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">23/04/18</span>
-                  </td>
-                  <td class="align-middle">
-                    <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                      Edit
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="d-flex px-2 py-1">
-                      <div>
-                        <img src="/assets/Back/img/team-3.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user2">
-                      </div>
-                      <div class="d-flex flex-column justify-content-center">
-                        <h6 class="mb-0 text-sm">Alexa Liras</h6>
-                        <p class="text-xs text-secondary mb-0">alexa@creative-tim.com</p>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <p class="text-xs font-weight-bold mb-0">Programator</p>
-                    <p class="text-xs text-secondary mb-0">Developer</p>
-                  </td>
-                  <td class="align-middle text-center text-sm">
-                    <span class="badge badge-sm bg-gradient-secondary">Offline</span>
-                  </td>
-                  <td class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">11/01/19</span>
-                  </td>
-                  <td class="align-middle">
-                    <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                      Edit
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="d-flex px-2 py-1">
-                      <div>
-                        <img src="/assets/Back/img/team-4.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user3">
-                      </div>
-                      <div class="d-flex flex-column justify-content-center">
-                        <h6 class="mb-0 text-sm">Laurent Perrier</h6>
-                        <p class="text-xs text-secondary mb-0">laurent@creative-tim.com</p>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <p class="text-xs font-weight-bold mb-0">Executive</p>
-                    <p class="text-xs text-secondary mb-0">Projects</p>
-                  </td>
-                  <td class="align-middle text-center text-sm">
-                    <span class="badge badge-sm bg-gradient-success">Online</span>
-                  </td>
-                  <td class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">19/09/17</span>
-                  </td>
-                  <td class="align-middle">
-                    <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                      Edit
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="d-flex px-2 py-1">
-                      <div>
-                        <img src="/assets/Back/img/team-3.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user4">
-                      </div>
-                      <div class="d-flex flex-column justify-content-center">
-                        <h6 class="mb-0 text-sm">Michael Levi</h6>
-                        <p class="text-xs text-secondary mb-0">michael@creative-tim.com</p>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <p class="text-xs font-weight-bold mb-0">Programator</p>
-                    <p class="text-xs text-secondary mb-0">Developer</p>
-                  </td>
-                  <td class="align-middle text-center text-sm">
-                    <span class="badge badge-sm bg-gradient-success">Online</span>
-                  </td>
-                  <td class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">24/12/08</span>
-                  </td>
-                  <td class="align-middle">
-                    <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                      Edit
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="d-flex px-2 py-1">
-                      <div>
-                        <img src="/assets/Back/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user5">
-                      </div>
-                      <div class="d-flex flex-column justify-content-center">
-                        <h6 class="mb-0 text-sm">Richard Gran</h6>
-                        <p class="text-xs text-secondary mb-0">richard@creative-tim.com</p>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <p class="text-xs font-weight-bold mb-0">Manager</p>
-                    <p class="text-xs text-secondary mb-0">Executive</p>
-                  </td>
-                  <td class="align-middle text-center text-sm">
-                    <span class="badge badge-sm bg-gradient-secondary">Offline</span>
-                  </td>
-                  <td class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">04/10/21</span>
-                  </td>
-                  <td class="align-middle">
-                    <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                      Edit
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="d-flex px-2 py-1">
-                      <div>
-                        <img src="/assets/Back/img/team-4.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user6">
-                      </div>
-                      <div class="d-flex flex-column justify-content-center">
-                        <h6 class="mb-0 text-sm">Miriam Eric</h6>
-                        <p class="text-xs text-secondary mb-0">miriam@creative-tim.com</p>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <p class="text-xs font-weight-bold mb-0">Programator</p>
-                    <p class="text-xs text-secondary mb-0">Developer</p>
-                  </td>
-                  <td class="align-middle text-center text-sm">
-                    <span class="badge badge-sm bg-gradient-secondary">Offline</span>
-                  </td>
-                  <td class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">14/09/20</span>
-                  </td>
-                  <td class="align-middle">
-                    <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                      Edit
-                    </a>
-                  </td>
-                </tr>
-                </tbody>
-              </table>
+
+          <!-- Update user form (hidden by default) -->
+          <div *ngIf="editingUserId !== null" class="card border-primary">
+            <div class="card-body">
+              <h6 class="text-primary">Edit User</h6>
+              <form (ngSubmit)="updateUser(newUser)">
+                <div class="mb-3">
+                  <label class="form-label fw-bold">First Name</label>
+                  <input type="text" class="form-control fw-bold" name="nomUser" [(ngModel)]="newUser.nomUser" placeholder="Enter First Name">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Last Name</label>
+                  <input type="text" class="form-control fw-bold" name="prenomUser" [(ngModel)]="newUser.prenomUser" placeholder="Enter Last Name">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Email</label>
+                  <input type="email" class="form-control fw-bold" name="email" [(ngModel)]="newUser.email" placeholder="Enter Email">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Username</label>
+                  <input type="text" class="form-control fw-bold" name="username" [(ngModel)]="newUser.username" placeholder="Enter Username">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Password</label>
+                  <input type="password" class="form-control fw-bold" name="password" [(ngModel)]="newUser.password" placeholder="Enter Password">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Date of Birth</label>
+                  <input type="date" class="form-control fw-bold" name="dateNaiss" [(ngModel)]="newUser.dateNaiss" placeholder="Select Date of Birth">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Telephone</label>
+                  <input type="tel" class="form-control fw-bold" name="tel" [(ngModel)]="newUser.tel" placeholder="Enter Tel number">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Role</label>
+                  <select class="form-select" name="role" [(ngModel)]="newUser.role">
+                    <option value="Etudiant">Etudiant</option>
+                    <option value="Enseignant">Enseignant</option>
+                    <option value="Expert">Expert</option>
+                    <option value="Admin">Admin</option>
+                  </select>
+                </div>
+                <div *ngIf="newUser.role === 'Etudiant'" class="mb-3">
+                  <label class="form-label fw-bold">Student Number</label>
+                  <input type="number" class="form-control fw-bold" name="numEtudiant" [(ngModel)]="newUser.numEtudiant" placeholder="Enter Student Number">
+                </div>
+                <div *ngIf="newUser.role === 'Enseignant'" class="mb-3">
+                  <label class="form-label fw-bold">Teacher Number</label>
+                  <input type="number" class="form-control fw-bold" name="numEnseignant" [(ngModel)]="newUser.numEnseignant" placeholder="Enter Teacher Number">
+                </div>
+                <div *ngIf="newUser.role === 'Expert'" class="mb-3">
+                  <label class="form-label fw-bold">Expert Number</label>
+                  <input type="number" class="form-control fw-bold" name="numExpert" [(ngModel)]="newUser.numExpert" placeholder="Enter Expert Number">
+                </div>
+                <div class="text-end">
+                  <button type="submit" class="btn btn-primary">Update</button>
+                  <button type="button" class="btn btn-outline-primary ms-2" (click)="cancelUpdate()">Cancel</button>
+                </div>
+              </form>
             </div>
+          </div>
+
+          <!-- User list table -->
+          <div class="table-responsive p-0 mt-4">
+            <table class="table align-items-center mb-0">
+              <thead>
+              <tr>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Role</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Username</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Telephone</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date of Birth</th>
+                <th class="text-secondary opacity-7">Actions</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let user of users">
+                <td>
+                  <div class="d-flex px-2 py-1">
+                    <div>
+                      <img *ngIf="user.imageProfil" [src]="getUserProfileImage(user)" class="avatar avatar-sm me-3 border-radius-lg" alt="user">
+                      <img *ngIf="!user.imageProfil" src="/assets/Back/img/bruce-mars.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="default">
+                    </div>
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="mb-0 text-sm">{{ user.nomUser + ' ' + user.prenomUser }}</h6>
+                      <p class="text-xs text-secondary mb-0">{{ user.email }}</p>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <p class="text-xs font-weight-bold mb-0">{{ user.role }}</p>
+                </td>
+                <td class="align-middle text-center text-sm">
+                  <span class="text-secondary text-xs font-weight-bold">{{ user.username }}</span>
+                </td>
+                <td class="align-middle text-center text-sm">
+                  <span class="text-secondary text-xs font-weight-bold">{{ user.tel }}</span>
+                </td>
+                <td class="align-middle text-center text-sm">
+                  <span class="text-secondary text-xs font-weight-bold">{{ user.dateNaiss }}</span>
+                </td>
+                <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
+                   (click)="editingUserId = user.idUser; copyUser(user)">Edit</a>
+                <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
+                   (click)="deleteUser(user.idUser)"
+                   style="color: red; cursor: pointer;">Delete</a>
+
+
+              </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
     </div>
-
-
   </div>
-
+</div>

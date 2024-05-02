@@ -27,7 +27,28 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/Back/js/material-dashboard.js",
+              "src/assets/Back/js/plugins/bootstrap-notify.js",
+              "src/assets/Back/js/plugins/Chart.extension.js",
+              "src/assets/Back/js/plugins/chartjs.min.js",
+              "src/assets/Back/js/plugins/countup.min.js",
+              "src/assets/Back/js/plugins/perfect-scrollbar.min.js",
+              "src/assets/Back/js/plugins/smooth-scrollbar.min.js",
+              "src/assets/Back/js/plugins/world.js",
+              "src/assets/Back/js/core/bootstrap.bundle.min.js",
+              "src/assets/Back/js/core/bootstrap.min.js",
+              "src/assets/Back/js/core/popper.min.js",
+              "src/assets/Front/plugins/jquery.min.js",
+              "src/assets/Front/plugins/bootstrap/bootstrap.min.js",
+              "src/assets/Front/plugins/fancybox/jquery.fancybox.min.js",
+              "src/assets/Front/plugins/google-map/gmap.js",
+              "src/assets/Front/plugins/jquery-ui/jquery-ui.js",
+              "src/assets/Front/plugins/slick/slick.min.js",
+              "src/assets/Front/plugins/slick/slick-animation.min.js",
+              "src/assets/Front/plugins/timePicker/timePicker.js",
+              "src/assets/Front/js/script.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -89,7 +110,28 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/Back/js/material-dashboard.js",
+              "src/assets/Back/js/plugins/bootstrap-notify.js",
+              "src/assets/Back/js/plugins/Chart.extension.js",
+              "src/assets/Back/js/plugins/chartjs.min.js",
+              "src/assets/Back/js/plugins/countup.min.js",
+              "src/assets/Back/js/plugins/perfect-scrollbar.min.js",
+              "src/assets/Back/js/plugins/smooth-scrollbar.min.js",
+              "src/assets/Back/js/plugins/world.js",
+              "src/assets/Back/js/core/bootstrap.bundle.min.js",
+              "src/assets/Back/js/core/bootstrap.min.js",
+              "src/assets/Back/js/core/popper.min.js",
+              "src/assets/Front/plugins/jquery.min.js",
+              "src/assets/Front/plugins/bootstrap/bootstrap.min.js",
+              "src/assets/Front/plugins/fancybox/jquery.fancybox.min.js",
+              "src/assets/Front/plugins/google-map/gmap.js",
+              "src/assets/Front/plugins/jquery-ui/jquery-ui.js",
+              "src/assets/Front/plugins/slick/slick.min.js",
+              "src/assets/Front/plugins/slick/slick-animation.min.js",
+              "src/assets/Front/plugins/timePicker/timePicker.js",
+              "src/assets/Front/js/script.js"
+            ]
           }
         }
       }
