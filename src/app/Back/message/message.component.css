@@ -1,0 +1,11 @@
+/* Customize pagination controls */
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+
+.message-with-stars {
+  border: 2px solid red; /* Customize border style and color as needed */
+}

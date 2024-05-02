@@ -1,0 +1,141 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "MindMingleFronts": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/mind-mingle-fronts",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "tsconfig.app.json",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/styles.css"
+            ],
+            "scripts": [
+              "src/assets/Back/js/material-dashboard.js",
+              "src/assets/Back/js/plugins/bootstrap-notify.js",
+              "src/assets/Back/js/plugins/Chart.extension.js",
+              "src/assets/Back/js/plugins/chartjs.min.js",
+              "src/assets/Back/js/plugins/countup.min.js",
+              "src/assets/Back/js/plugins/perfect-scrollbar.min.js",
+              "src/assets/Back/js/plugins/smooth-scrollbar.min.js",
+              "src/assets/Back/js/plugins/world.js",
+              "src/assets/Back/js/core/bootstrap.bundle.min.js",
+              "src/assets/Back/js/core/bootstrap.min.js",
+              "src/assets/Back/js/core/popper.min.js",
+              "src/assets/Front/plugins/jquery.min.js",
+              "src/assets/Front/plugins/bootstrap/bootstrap.min.js",
+              "src/assets/Front/plugins/fancybox/jquery.fancybox.min.js",
+              "src/assets/Front/plugins/google-map/gmap.js",
+              "src/assets/Front/plugins/jquery-ui/jquery-ui.js",
+              "src/assets/Front/plugins/slick/slick.min.js",
+              "src/assets/Front/plugins/slick/slick-animation.min.js",
+              "src/assets/Front/plugins/timePicker/timePicker.js",
+              "src/assets/Front/js/script.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "MindMingleFronts:build:production"
+            },
+            "development": {
+              "browserTarget": "MindMingleFronts:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "MindMingleFronts:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "tsconfig.spec.json",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.css"
+            ],
+            "scripts": [
+              "src/assets/Back/js/material-dashboard.js",
+              "src/assets/Back/js/plugins/bootstrap-notify.js",
+              "src/assets/Back/js/plugins/Chart.extension.js",
+              "src/assets/Back/js/plugins/chartjs.min.js",
+              "src/assets/Back/js/plugins/countup.min.js",
+              "src/assets/Back/js/plugins/perfect-scrollbar.min.js",
+              "src/assets/Back/js/plugins/smooth-scrollbar.min.js",
+              "src/assets/Back/js/plugins/world.js",
+              "src/assets/Back/js/core/bootstrap.bundle.min.js",
+              "src/assets/Back/js/core/bootstrap.min.js",
+              "src/assets/Back/js/core/popper.min.js",
+              "src/assets/Front/plugins/jquery.min.js",
+              "src/assets/Front/plugins/bootstrap/bootstrap.min.js",
+              "src/assets/Front/plugins/fancybox/jquery.fancybox.min.js",
+              "src/assets/Front/plugins/google-map/gmap.js",
+              "src/assets/Front/plugins/jquery-ui/jquery-ui.js",
+              "src/assets/Front/plugins/slick/slick.min.js",
+              "src/assets/Front/plugins/slick/slick-animation.min.js",
+              "src/assets/Front/plugins/timePicker/timePicker.js",
+              "src/assets/Front/js/script.js"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
