@@ -28,6 +28,18 @@ import { BlogDetailsComponent } from './Front/blog-details/blog-details.componen
 import { RendezvousFrontComponent } from './Front/rendezvous-front/rendezvous-front.component';
 import { AboutComponent } from './Front/about/about.component';
 import { ContactComponent } from './Front/contact/contact.component';
+import { SignInComponent } from './Authentication/sign-in/sign-in.component';
+import { SignUpComponent } from './Authentication/sign-up/sign-up.component';
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {FormsModule} from "@angular/forms";
+import {ToastrModule} from "ngx-toastr";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {AuthInterceptor} from "./Authentication/service/auth.interceptor";
+import { ProfileComponent } from './Back/profile/profile.component';
+import { ForgotPasswordComponent } from './Authentication/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './Authentication/reset-password/reset-password.component';
+import { RegistrationStatsComponent } from './Back/registration-stats/registration-stats.component';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 
 @NgModule({
@@ -58,12 +70,33 @@ import { ContactComponent } from './Front/contact/contact.component';
     RendezvousFrontComponent,
     AboutComponent,
     ContactComponent,
+    SignInComponent,
+    SignUpComponent,
+    ProfileComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
+    RegistrationStatsComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts'),
+    })
+
+
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
