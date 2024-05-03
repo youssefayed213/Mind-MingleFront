@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common'; // Import CommonModule
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -93,6 +94,8 @@ import { GroupesBackComponent } from './Back/groupes-back/groupes-back.component
     GroupesBackComponent,
   ],
   imports: [NgxPaginationModule,
+    CommonModule,
+    NgbModule,
     ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
@@ -103,7 +106,7 @@ import { GroupesBackComponent } from './Back/groupes-back/groupes-back.component
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts'),
     }),
-    NgbModule
+    
 
 
   ],

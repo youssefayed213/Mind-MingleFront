@@ -8,7 +8,7 @@
     
                       <input type="search" [(ngModel)]="searchTerm" class="form-control" placeholder="Search...">
                     </div>
-                    <ul class="list-unstyled chat-list mt-2 mb-0"  *ngFor="let member of groupDetails.members | keyvalue ">
+                    <ul class="list-unstyled chat-list mt-2 mb-0"  *ngFor="let member of groupDetails.members | keyvalue | filter: searchTerm">
                         <li class="clearfix active" >
                             <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
                             <div class="about">

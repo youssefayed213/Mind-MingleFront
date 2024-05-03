@@ -1,104 +1,103 @@
 <div class="container">
-    <div class="row">
-      <button class="btn btn-md btn-outline-primary mb-3" (click)="open(content)">
-        <i class="fa fa-user"></i> New Group
-      </button>
-  
-      <ng-container *ngFor="let groupe of groupes ">
-        <!-- Apply *ngIf directly display only the membered groupes -->
-        <!-- <div *ngIf="isMemberOfGroup(groupe.members, 1)" class="col-md-4 group-card"> -->
-        <div class="col-md-4 group-card"> 
-        <div class="border"></div>
-          <div class="card h-100">
-            <div class="card-header d-flex flex-wrap">
-              <div class="w-100">
-                <h5 class="card-title">{{ groupe.nom }}</h5>
-              </div>
-              <div class="w-100">
-                <p class="mb-0"><strong>Category:</strong> {{ groupe.categorieGroupe }}</p>
+  <div class="row">
+    <button class="btn btn-md btn-outline-primary mb-3" (click)="open(content)">
+      <i class="fa fa-user"></i> New Group
+    </button>
+
+    <ng-container *ngFor="let groupe of groupes ">
+      <!-- Apply *ngIf directly display only the membered groupes -->
+      <!-- <div *ngIf="isMemberOfGroup(groupe.members, 1)" class="col-md-4 group-card"> -->
+      <div class="col-md-4 group-card"> 
+      <div class="border"></div>
+        <div class="card h-100">
+          <div class="card-header d-flex flex-wrap">
+            <div class="w-100">
+              <h5 class="card-title">{{ groupe.nom }}</h5>
+            </div>
+            <div class="w-100">
+              <p class="mb-0"><strong>Category:</strong> {{ groupe.categorieGroupe }}</p>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12">
+                <p><strong>Creation Date:</strong> {{ groupe.dateGr | date: 'dd/MM/yyyy' }}</p>
               </div>
             </div>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-12">
-                  <p><strong>Creation Date:</strong> {{ groupe.dateGr | date: 'dd/MM/yyyy' }}</p>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12">
-                  <p><strong>Creator:</strong> {{ groupe.creator }}</p>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12">
-                  <p><strong>Messages:</strong> {{ groupe.messages.length }}</p>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12">
-                  <p><strong>Members:</strong> {{ countMembers(groupe.members) }}</p>
-                </div>
+            <div class="row">
+              <div class="col-12">
+                <p><strong>Creator:</strong> {{ groupe.creator }}</p>
               </div>
             </div>
-            <div class="card-footer">
-              <button class="btn btn-primary w-100" (click)="loadGroupDetails(groupe.idGroupe)">See Details</button>
+            <div class="row">
+              <div class="col-12">
+                <p><strong>Messages:</strong> {{ groupe.messages.length }}</p>
+              </div>
             </div>
+            <div class="row">
+              <div class="col-12">
+                <p><strong>Members:</strong> {{ countMembers(groupe.members) }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="btn btn-primary w-100" (click)="loadGroupDetails(groupe.idGroupe)">See Details</button>
           </div>
         </div>
-      </ng-container>
-    </div>
+      </div>
+    </ng-container>
   </div>
-  
-  
-  
-  
-  
-    <ng-template #content let-modal>
-      <div class="modal-header">
-          <h4 class="modal-title" id="modal-basic-title">Add New Groupe</h4>
-          <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-      </div>
-      <div class="modal-body">
-        <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
-          <div class="form-group">
-            <label for="nom">Group Name</label>
-            <div class="input-group">
-              <input type="text" id="nom" class="form-control" name="nom" ngModel required #nom="ngModel">
-            </div>
-            <div *ngIf="nom.invalid && (nom.dirty || nom.touched)" class="error-message">
-              Group Name is required
-            </div>
+</div>
+
+
+
+
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Add New Groupe</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+    <div class="modal-body">
+      <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+        <div class="form-group">
+          <label for="nom">Group Name</label>
+          <div class="input-group">
+            <input type="text" id="nom" class="form-control" name="nom" ngModel required #nom="ngModel">
           </div>
-        
-          <div class="form-group">
-            <label for="description">Description</label>
-            <div class="input-group">
-              <textarea id="description" class="form-control" name="description" rows="5" ngModel required #description="ngModel"></textarea>
-            </div>
-            <div *ngIf="description.invalid && (description.dirty || description.touched)" class="error-message">
-              Description is required
-            </div>
+          <div *ngIf="nom.invalid && (nom.dirty || nom.touched)" class="error-message">
+            Group Name is required
           </div>
-        
-          <div class="form-group">
-            <label for="category">Category</label>
-            <div class="input-group">
-              <select id="category" class="form-control" name="category" [(ngModel)]="selectedCategoryId" required #category="ngModel">
-                <option *ngFor="let category of categories" [value]="category.idCatGroupe">{{ category.nomCatGroupe }}</option>
-              </select>
-            </div>
-            <div *ngIf="category.invalid && (category.dirty || category.touched)" class="error-message">
-              Category is required
-            </div>
+        </div>
+      
+        <div class="form-group">
+          <label for="description">Description</label>
+          <div class="input-group">
+            <textarea id="description" class="form-control" name="description" rows="5" ngModel required #description="ngModel"></textarea>
           </div>
-        
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-outline-dark">Submit</button>
+          <div *ngIf="description.invalid && (description.dirty || description.touched)" class="error-message">
+            Description is required
           </div>
-        </form>
-            
-            
-      </div>
-     
-    </ng-template>
-  
+        </div>
+      
+        <div class="form-group">
+          <label for="category">Category</label>
+          <div class="input-group">
+            <select id="category" class="form-control" name="category" [(ngModel)]="selectedCategoryId" required #category="ngModel">
+              <option *ngFor="let category of categories" [value]="category.idCatGroupe">{{ category.nomCatGroupe }}</option>
+            </select>
+          </div>
+          <div *ngIf="category.invalid && (category.dirty || category.touched)" class="error-message">
+            Category is required
+          </div>
+        </div>
+      
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-outline-dark"[disabled]="!f.form.valid">Submit</button>
+        </div>
+      </form>
+          
+          
+    </div>
+   
+  </ng-template>
