@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {AuthService} from "../service/auth-service.service";
 import {ToastrService} from "ngx-toastr";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-sign-in',
@@ -14,18 +15,25 @@ export class SignInComponent {
 
   username: string = '';
   password: string = '';
+  usernameOfToken: string = ''; // Initialize as empty string
 
-
-  constructor(private route: ActivatedRoute,private authService: AuthService,private toastr: ToastrService,private router: Router,) { }
+  constructor(
+    private route: ActivatedRoute,
+    private authService: AuthService,
+    private toastr: ToastrService,
+    private router: Router,
+    private cookieService: CookieService // Inject CookieService
+  ) { }
 
 
   ngOnInit(): void {
-    // Check if the 'confirmed' query parameter is present
     this.route.queryParams.subscribe(params => {
       this.confirmed = params['confirmed'] === 'true';
     });
     this.login()
   }
+
+
 
   login() {
     if (!this.username || !this.password) {
@@ -35,6 +43,13 @@ export class SignInComponent {
 
     this.authService.login(this.username, this.password).subscribe(
       (data) => {
+        const token = data.token;
+        this.usernameOfToken = data.usernameOfToken;
+        console.log("Username of token: " + this.usernameOfToken);
+
+        // Store usernameOfToken in a cookie
+        this.cookieService.set('username', this.usernameOfToken);
+
         // Handle successful login
         console.log('Login successful');
         this.router.navigate(['/profile']); // Navigate to dashboard or desired route on success
@@ -48,4 +63,5 @@ export class SignInComponent {
       }
     );
   }
+
 }
