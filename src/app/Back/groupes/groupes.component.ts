@@ -77,12 +77,12 @@ export class GroupesComponent implements OnInit{
     this.getGroupes();
     this.getAllCategories();
     this.editForm = this.fb.group({
-      idGroupe: [''], // Initialize idGroupe
+      idGroupe: [''], 
       nomGroupe: new FormControl('', Validators.required), 
       descGroupe:  new FormControl('', Validators.required),
-      category:  new FormControl('', Validators.required), // Add FormControl for the category field
-      creator: { value: '', disabled: true }, // Disable the "creator" input field
-      dateGr: [''] // Initialize dateGr
+      category:  new FormControl('', Validators.required), 
+      creator: { value: '', disabled: true }, 
+      dateGr: [''] 
     });
   }
 
@@ -157,7 +157,7 @@ async onSubmit(f: NgForm): Promise<void> {
     nom: formValue.nom,
     description: formValue.description,
     dateGr: new Date().toISOString(),
-    creator: { idUser: 1 }, // Replace with actual user ID logic
+    creator: { idUser: 1 }, 
     categorieGroupe: { idCatGroupe: categoryId },
   };
 
@@ -287,6 +287,7 @@ removeMember( groupId: number | undefined,memberId: number | undefined) {
     console.error('groupId or memberId is undefined');
   }
 }
+
 
 
 

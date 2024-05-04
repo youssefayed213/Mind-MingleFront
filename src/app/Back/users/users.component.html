@@ -11,6 +11,10 @@
           <!-- Button to toggle new user form -->
           <button class="btn btn-primary mb-3" (click)="toggleAddUserForm()">Add New User</button>
 
+          <div class="col-md-6">
+            <input type="search" class="form-control custom-search-input" placeholder="Search..." [(ngModel)]="searchTerm" (input)="filterUsers()">
+          </div>
+
           <!-- New user form (hidden by default) -->
           <div *ngIf="showAddUserForm" class="card border-primary">
             <div class="card-body">

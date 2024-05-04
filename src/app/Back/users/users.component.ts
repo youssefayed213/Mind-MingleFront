@@ -39,6 +39,9 @@ export class UsersComponent implements OnInit{
   rolee = RoleUser.Etudiant;
   editingUserId: number | null = null; // Track the user being edited
 
+
+  searchTerm: string = ''; // Search term for filtering users
+
   constructor(private userService: UserService,private toastr: ToastrService,private router: Router,private profileService: ProfileService) {}
 
   ngOnInit(): void {
@@ -145,5 +148,44 @@ export class UsersComponent implements OnInit{
       return '/assets/Back/img/bruce-mars.jpg';
     }
   }
+
+  filterUsers(): void {
+    if (!this.searchTerm) {
+      // If search term is empty, show all users
+      this.loadUsers();
+    } else {
+      // Filter users by first name and last name
+      const [prenom, nom] = this.searchTerm.split(' ');
+      if (prenom && nom) {
+        // Call the API to filter users by first name and last name
+        this.userService.getUsersByFirstNameAndLastName(prenom, nom)
+          .subscribe(users => {
+            this.users = users;
+            console.log('Filtered users:', users);
+          }, error => {
+            console.error('Error filtering users:', error);
+          });
+      } else if (prenom) {
+        // Call the API to filter users by first name only
+        this.userService.getUserByPrenom(prenom)
+          .subscribe(users => {
+            this.users = users;
+            console.log('Filtered users:', users);
+          }, error => {
+            console.error('Error filtering users:', error);
+          });
+      } else if (nom) {
+        // Call the API to filter users by last name only
+        this.userService.getUserByNom(nom)
+          .subscribe(users => {
+            this.users = users;
+            console.log('Filtered users:', users);
+          }, error => {
+            console.error('Error filtering users:', error);
+          });
+      }
+    }
+  }
+
 
 }

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CookieService } from 'ngx-cookie-service';
 
 
 // Define a TypeScript class for the Groupe object
@@ -45,16 +46,39 @@ export class GroupeComponent implements OnInit {
   closeResult: string | undefined;
   selectedCategoryId: number | undefined; // Remove the null initialization
   categories: Category[] = [];
+  userId: number = 0; 
+  name: String = "";
+  role: String = "";
 
-
-  constructor(private httpClient: HttpClient,private router: Router,   private modalService: NgbModal 
+  constructor(private httpClient: HttpClient,private router: Router,   private modalService: NgbModal ,private cookieService: CookieService
   ) {}
 
   ngOnInit(): void {
+    this.getUserByUsername();
     this.getGroupes();
     this.getAllCategories();
 
   }
+  getUserByUsername() {
+    const username = this.cookieService.get('username');
+
+    // Make the HTTP GET request to the provided URL
+    this.httpClient.get<any>('http://localhost:8085/minds/api/home/findByUsername/' + username)
+      .subscribe(
+        (response) => {
+          // Extract the idUser field from the response
+          this.userId = response.idUser;
+          this.name = response.nomUser + ' ' + response.prenomUser;
+          this.role= response.role;
+          // Log the idUser to the console
+          console.log('User ID:', this.role);
+        },
+        (error) => {
+          // Handle errors if any
+          console.error('Error fetching user:', error);
+        }
+      );
+}
   getAllCategories(): void {
     this.httpClient.get<Category[]>('http://localhost:8085/minds/api/CatGr/getAllCatGr')
       .subscribe(
@@ -125,7 +149,7 @@ export class GroupeComponent implements OnInit {
       nom: formValue.nom,
       description: formValue.description,
       dateGr: new Date().toISOString(),
-      creator: { idUser: 1 }, // Replace with actual user ID logic
+      creator: { idUser: this.userId }, 
       categorieGroupe: { idCatGroupe: categoryId },
     };
   

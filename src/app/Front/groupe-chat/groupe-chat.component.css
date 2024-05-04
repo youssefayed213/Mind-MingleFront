@@ -276,4 +276,6 @@ body{
   .chat-message .input-group-prepend button i {
     margin-right: 5px; /* Add space between icon and text */
   }
-  
+  ::ng-deep ngb-modal-backdrop {
+    z-index: 1050 !important;
+  }

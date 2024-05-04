@@ -32,6 +32,7 @@ import { MessageComponent } from './Back/message/message.component';
 import { GroupesBackComponent } from './Back/groupes-back/groupes-back.component';
 
 
+
 const routes: Routes = [
 
   { path: "",
@@ -46,6 +47,7 @@ const routes: Routes = [
         component: GroupeComponent
       },
       {
+
         path: "blog",
         component: BlogComponent
       },
@@ -69,6 +71,7 @@ const routes: Routes = [
         path: 'profile',
         component: ProfileComponent
       },{ path: 'groupesChat/:id', component: GroupeChatComponent },
+
     ]
   },
   {
@@ -87,7 +90,7 @@ const routes: Routes = [
         path: "tables",
         component: TablesComponent
       },
-      
+
       {
         path: "events",
         component: EventsComponent
@@ -135,6 +138,7 @@ const routes: Routes = [
       {
         path: "groupesBack",
         component: GroupesBackComponent
+
       }
     ]
   },

@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CookieService } from 'ngx-cookie-service';
 
 export class Message {
   
@@ -35,16 +36,18 @@ export class GroupeChatComponent implements OnInit, OnDestroy {
   messageContent: string = '';
   messages: any[] = [];
 
+  userId: number = 0; 
+  name: String = "";
 
-
-
-  constructor(
+  constructor(private cookieService: CookieService,
     private activatedRoute: ActivatedRoute,
     private httpClient: HttpClient,private fb: FormBuilder,private modalService: NgbModal
     
   ) {}
 
   ngOnInit(): void {
+
+    this.getUserByUsername();
 
     this.subscribeToGroupChanges();
     this.editForm = this.fb.group({
@@ -60,6 +63,25 @@ export class GroupeChatComponent implements OnInit, OnDestroy {
     }
 
   }
+  getUserByUsername() {
+    const username = this.cookieService.get('username');
+
+    // Make the HTTP GET request to the provided URL
+    this.httpClient.get<any>('http://localhost:8085/minds/api/home/findByUsername/' + username)
+      .subscribe(
+        (response) => {
+          // Extract the idUser field from the response
+          this.userId = response.idUser;
+          this.name = response.nomUser + ' ' + response.prenomUser;
+          // Log the idUser to the console
+          console.log('User ID:', response);
+        },
+        (error) => {
+          // Handle errors if any
+          console.error('Error fetching user:', error);
+        }
+      );
+}
 
   private webSocketMap: Map<string, WebSocket> = new Map<string, WebSocket>();
 
@@ -157,15 +179,15 @@ export class GroupeChatComponent implements OnInit, OnDestroy {
       contenuMsg: filteredMessageContent,
       createdAt: now,
       groupe: { idGroupe: groupId },
-      user: { idUser: 1 } // Assuming fixed user ID
+      user: { idUser: this.userId } 
     };
   
     const messagePayload2 = {
-      userName: 'Admin',
+      userName: this.name,
       contenuMsg: filteredMessageContent,
       createdAt: now,
       groupe: { idGroupe: groupId },
-      user: { idUser: 1 } // Assuming fixed user ID
+      user: { idUser: this.userId } // Assuming fixed user ID
     };
   
     if (!groupId) {
@@ -236,7 +258,7 @@ export class GroupeChatComponent implements OnInit, OnDestroy {
     idMsg: idMsg,
     contenuMsg: formValue.contenuMsg,
     createdAt: new Date().toISOString(),
-    user: { idUser: 1 }, // Replace with actual user ID logic
+    user: { idUser: this.userId }, // Replace with actual user ID logic
     groupe: { idGroupe: groupId },
   };
 

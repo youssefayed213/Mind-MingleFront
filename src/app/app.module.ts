@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common'; // Import CommonModule
 
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AllBackComponent } from './Back/all-back/all-back.component';
@@ -33,6 +34,7 @@ import { SignInComponent } from './Authentication/sign-in/sign-in.component';
 import { SignUpComponent } from './Authentication/sign-up/sign-up.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {FormsModule,ReactiveFormsModule} from "@angular/forms";
+
 import {ToastrModule} from "ngx-toastr";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {AuthInterceptor} from "./Authentication/service/auth.interceptor";
@@ -49,6 +51,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { CategorieComponent } from './Back/categorie/categorie.component';
 import { MessageComponent } from './Back/message/message.component';
 import { GroupesBackComponent } from './Back/groupes-back/groupes-back.component';
+
 
 
 
@@ -97,6 +100,7 @@ import { GroupesBackComponent } from './Back/groupes-back/groupes-back.component
     CommonModule,
     NgbModule,
     ReactiveFormsModule,
+
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -107,6 +111,7 @@ import { GroupesBackComponent } from './Back/groupes-back/groupes-back.component
       echarts: () => import('echarts'),
     }),
     
+
 
 
   ],

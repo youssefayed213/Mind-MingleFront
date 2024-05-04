@@ -32,4 +32,18 @@ export class UserService {
     return this.http.get<any>(`${this.baseUrl}/registration-stats?timePeriod=${timePeriod}`);
   }
 
+
+  getUserByPrenom(prenom: string): Observable<User[]> {
+    return this.http.get<User[]>(`${this.baseUrl}/userByPrenom/${prenom}`);
+  }
+
+  getUserByNom(nom: string): Observable<User[]> {
+    return this.http.get<User[]>(`${this.baseUrl}/userByNom/${nom}`);
+  }
+
+  getUsersByFirstNameAndLastName(prenom: string, nom: string): Observable<User[]> {
+    return this.http.get<User[]>(`${this.baseUrl}/userByPrenomEtNom/${prenom}/${nom}`);
+  }
+
+
 }

@@ -1,13 +1,14 @@
 <div class="container">
   <div class="row">
-    <button class="btn btn-md btn-outline-primary mb-3" (click)="open(content)">
+    <button *ngIf="this.role !== 'Etudiant' && this.role !== 'Enseignant' " class="btn btn-md btn-outline-primary mb-3" (click)="open(content)">
       <i class="fa fa-user"></i> New Group
     </button>
 
-    <ng-container *ngFor="let groupe of groupes ">
+    <ng-container >
       <!-- Apply *ngIf directly display only the membered groupes -->
-      <!-- <div *ngIf="isMemberOfGroup(groupe.members, 1)" class="col-md-4 group-card"> -->
-      <div class="col-md-4 group-card"> 
+      <div class="col-md-4 group-card"*ngFor="let groupe of groupes "> 
+        <!-- <div *ngIf="isMemberOfGroup(groupe.members, this.userId)" >  -->
+
       <div class="border"></div>
         <div class="card h-100">
           <div class="card-header d-flex flex-wrap">
@@ -40,11 +41,13 @@
               </div>
             </div>
           </div>
+          
           <div class="card-footer">
             <button class="btn btn-primary w-100" (click)="loadGroupDetails(groupe.idGroupe)">See Details</button>
           </div>
         </div>
-      </div>
+        </div>
+      
     </ng-container>
   </div>
 </div>

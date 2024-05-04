@@ -37,6 +37,7 @@ export class AuthService {
     // Remove token from cookie
     this.cookieService.delete('token', '/', '');
 
+    this.cookieService.delete('username', '/', '');
     // Retrieve token from cookie
     const token = this.cookieService.get('token');
 

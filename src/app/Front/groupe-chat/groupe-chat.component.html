@@ -34,7 +34,7 @@
                     <div class="chat-history" >
                       <ul class="m-b-0"*ngFor="let message of messages">
                         <li class="clearfix" >
-                          <div *ngIf="message.idUser !== 1">
+                          <div *ngIf="message.idUser !== this.userId">
                             <div class="message-data">
                               <span class="message-data-time">{{ message.createdAt | date: 'medium' }}</span>
                             </div>
@@ -46,7 +46,7 @@
   
                     </li>
                     <li class="clearfix" >
-                          <div *ngIf="message.idUser == 1">
+                          <div *ngIf="message.idUser == this.userId">
                             <div class="message-data text-right">
                               <span class="message-data-time float-right">{{ message.createdAt | date: 'medium' }}</span>
                             </div>
