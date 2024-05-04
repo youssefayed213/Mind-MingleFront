@@ -1,0 +1,115 @@
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Categories</h2>
+      <!-- Button to open new category modal -->
+      <div class="border">
+        <button class="btn btn-md btn-outline-primary" (click)="open(content)">
+          <i class="fa fa-user"></i> New Category
+        </button>
+      </div>
+      <br>
+      <input type="search" [(ngModel)]="searchTerm" class="form-control" placeholder="Search...">
+      <br>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Categorie Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let categorie of categories | paginate: { itemsPerPage: 2, currentPage: p } | filter : searchTerm ">
+                        <td>{{ categorie.nomCatGroupe }}</td>
+
+                        <td>
+                            <!-- Action buttons: Update, Delete -->
+                            <button class="btn btn-sm btn-warning" (click)="openEdit(contentEdit, categorie)"><i class="fa fa-edit"></i>Update</button>
+                            <button class="btn btn-sm btn-danger " (click)="openDelete(contentDelete, categorie)"><i class="fa fa-remove"></i>Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        
+    </div>
+</div>
+<ng-template #content let-modal>
+    <div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Add New Category</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+    <div class="modal-body">
+      <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+        <div class="form-group">
+          <label for="nomCatGroupe">Category Name</label>
+          <div class="input-group">
+            <input type="text" id="nomCatGroupe" class="form-control" name="nomCatGroupe" ngModel required #nomCatGroupe="ngModel">
+          </div>
+          <div *ngIf="nomCatGroupe.invalid && (nomCatGroupe.dirty || nomCatGroupe.touched)" class="error-message">
+            Category Name is required
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-outline-dark" [disabled]="!f.form.valid">Submit</button>
+        </div>
+      </form>
+      
+          
+    </div>
+   
+  </ng-template>
+  <ng-template #contentDelete let-modal>
+    
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">Category deletion</h4>
+        <button
+            type="button"
+            class="btn-close"
+            aria-label="Close button"
+            aria-describedby="modal-title"
+            (click)="modal.dismiss('Cross click')"
+        ></button>
+    </div>
+    <div class="modal-body">
+        
+        <p>
+            <strong>Are you sure you want to delete this category ?</strong>
+        </p>
+        <p>
+            All information associated to this category will be permanently deleted.
+            <span class="text-danger">This operation can not be undone.</span>
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" ngbAutofocus class="btn btn-danger" (click)="onDelete()">Ok</button>
+        <button type="button" class="btn btn-outline-secondary" (click)="modal.close('Ok click')">Cancel</button>
+    </div>
+    
+
+</ng-template>
+<ng-template #contentEdit let-modal>
+    <div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Update Category</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+    <div class="modal-body">
+        <form [formGroup]="editForm" novalidate>
+            <div class="form-group">
+              <label for="nomCatGroupe">Category Name</label>
+              <div class="input-group">
+                <input type="text" id="nomCatGroupe" class="form-control" formControlName="nomCatGroupe" >
+              </div>
+              
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-outline-dark"(click)="onSave()" >Submit</button>
+            </div>
+          </form>
+          
+    </div>
+   
+  </ng-template>
+  <pagination-controls class="pagination-controls" (pageChange)="p = $event"></pagination-controls>

@@ -1,0 +1,195 @@
+<div class="container">
+  <div class="row">
+      <div class="col-md-12">
+          <h2>Groups List</h2>
+    <div class="border">
+      <button class="btn btn-md btn-outline-primary" (click)="open(content)">
+        <i class="fa fa-user"></i> New Groupe
+      </button>
+      
+
+    </div>
+    <br>
+    <input type="search" [(ngModel)]="searchTerm" class="form-control" placeholder="Search by group name, category or creator">
+    <br>
+          <table class="table table-bordered table-striped">
+              <thead>
+                  <tr>
+                      <th>Group Name</th>
+                      <th>Category</th>
+                      <th>Description</th>
+                      <th>Creation Date</th>
+                      <th>Creator</th>
+                      <th>Messages</th>
+                      <th>Members</th>
+                      <th>Actions</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let groupe of groupes | paginate: { itemsPerPage: 6, currentPage: p } |filter: searchTerm">
+                      <td>{{ groupe.nom }}</td>
+                      <td>{{ groupe.categorieGroupe }}</td>
+                      <td>{{ groupe.description }}</td>
+                      <td>{{ groupe.dateGr | date: 'dd/MM/yyyy' }}</td>
+                      <td>{{ groupe.creator }}</td>
+                      <td>{{ groupe.messages.length }}</td>
+                      <td>{{ countMembers(groupe.members) }}</td>
+                      <td>
+                          <button class="btn btn-sm btn-warning" (click)="openEdit(contentEdit, groupe)"><i class="fa fa-edit"></i>Update</button>
+                          <button class="btn btn-sm btn-danger" (click)="openDelete(contentDelete, groupe)"><i class="fa fa-remove"></i>Delete</button>
+                          <button class="btn btn-sm btn-info" (click)="groupe.idGroupe && openEditMembersModal(contentEditMembers, groupe.idGroupe, groupe)"><i class="fa fa-remove"></i>Edit Members</button>
+
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+
+      </div>
+  </div>
+</div>
+
+<ng-template #contentDelete let-modal>
+  
+  <div class="modal-header">
+      <h4 class="modal-title" id="modal-title">Groupe deletion</h4>
+      <button
+          type="button"
+          class="btn-close"
+          aria-label="Close button"
+          aria-describedby="modal-title"
+          (click)="modal.dismiss('Cross click')"
+      ></button>
+  </div>
+  <div class="modal-body">
+      
+      <p>
+          <strong>Are you sure you want to delete this groupe ?</strong>
+      </p>
+      <p>
+          All information associated to this groupe will be permanently deleted.
+          <span class="text-danger">This operation can not be undone.</span>
+      </p>
+  </div>
+  <div class="modal-footer">
+      <button type="button" ngbAutofocus class="btn btn-danger" (click)="onDelete()">Ok</button>
+      <button type="button" class="btn btn-outline-secondary" (click)="modal.close('Ok click')">Cancel</button>
+  </div>
+  
+
+</ng-template>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Add New Groupe</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+</div>
+  <div class="modal-body">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+      <div class="form-group">
+        <label for="nom">Group Name</label>
+        <div class="input-group">
+          <input type="text" id="nom" class="form-control" name="nom" ngModel required #nom="ngModel">
+        </div>
+        <div *ngIf="nom.invalid && (nom.dirty || nom.touched)" class="error-message">
+          Group Name is required
+        </div>
+      </div>
+    
+      <div class="form-group">
+        <label for="description">Description</label>
+        <div class="input-group">
+          <textarea id="description" class="form-control" name="description" rows="5" ngModel required #description="ngModel"></textarea>
+        </div>
+        <div *ngIf="description.invalid && (description.dirty || description.touched)" class="error-message">
+          Description is required
+        </div>
+      </div>
+    
+      <div class="form-group">
+        <label for="category">Category</label>
+        <div class="input-group">
+          <select id="category" class="form-control" name="category" [(ngModel)]="selectedCategoryId" required #category="ngModel">
+            <option *ngFor="let category of categories" [value]="category.idCatGroupe">{{ category.nomCatGroupe }}</option>
+          </select>
+        </div>
+        <div *ngIf="category.invalid && (category.dirty || category.touched)" class="error-message">
+          Category is required
+        </div>
+      </div>
+    
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-outline-dark"[disabled]="!f.form.valid">Submit</button>
+      </div>
+    </form>
+        
+        
+  </div>
+ 
+</ng-template>
+
+
+
+<ng-template #contentEdit let-modal>
+  <div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Update Groupe</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+</div>
+  <div class="modal-body">
+      <form [formGroup]="editForm" novalidate (ngSubmit)="onSave()">
+          <div class="form-group">
+            <label for="nomGroupe">Group Name</label>
+            <div class="input-group">
+                <input type="text" id="nomGroupe" class="form-control" formControlName="nomGroupe">
+            </div>
+            <div *ngIf="editForm.get('nomGroupe')!.invalid && editForm.get('nomGroupe')!.touched" class="alert alert-danger">
+                <strong>Error:</strong> Group Name should not be empty
+            </div>
+            <label for="creator">Creator</label>
+            <div class="input-group">
+              <input type="text" id="creator" class="form-control" formControlName="creator">
+            </div>
+            <label for="descGroupe">Group Description</label>
+            <div class="input-group">
+              <input type="text" id="descGroupe" class="form-control" formControlName="descGroupe" >
+            </div>
+            <div *ngIf="editForm.get('descGroupe')!.invalid && editForm.get('descGroupe')!.touched" class="alert alert-danger">
+              <strong>Error:</strong> Description should not be empty
+          </div>
+            <label for="category">Group Category</label>
+            <div class="input-group">
+              <select id="category" class="form-control" name="category" formControlName="category" [(ngModel)]="selectedCategoryId" required>
+                <option *ngFor="let category of categories" [value]="category.idCatGroupe">{{ category.nomCatGroupe }}</option>
+              </select>
+            </div>
+            <div *ngIf="editForm.get('category')!.invalid && editForm.get('category')!.touched" class="alert alert-danger">
+              <strong>Error:</strong> category should not be empty
+          </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-outline-dark" >Submit</button>
+          </div>
+        </form>
+  </div>
+</ng-template>
+<ng-template #contentEditMembers let-modal>
+  <div class="modal-header">
+    
+    <h4 class="modal-title" id="modal-basic-title">Edit Group Members</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <h5>Group Members:</h5>
+    <ul>
+      <!-- Loop through groupMembers array to display each member -->
+      <li *ngFor="let member of groupMembers; let i = index">
+      <!-- Display member name -->
+        {{ member }}
+        
+        <!-- Add delete button for each member -->
+        
+        <button class="btn btn-sm btn-danger" (click)="removeMember(selectedGroupId, memberKeys[i])">Delete</button>
+      </li>
+    </ul>
+  </div>
+</ng-template>
+<pagination-controls class="pagination-controls" (pageChange)="p = $event"></pagination-controls>

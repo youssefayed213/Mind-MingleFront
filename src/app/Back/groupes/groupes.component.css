@@ -1,0 +1,14 @@
+::ng-deep ngb-modal-backdrop {
+    z-index: 1050 !important;
+  }
+      /* Customize pagination controls */
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  .error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+  }
