@@ -7,6 +7,7 @@ import { CookieService } from 'ngx-cookie-service';
 
 
 
+
 // Define a TypeScript class for the Groupe object
 export class Groupe {
   constructor(
@@ -71,12 +72,15 @@ export class GroupesComponent implements OnInit{
 
 
 
+
   constructor(private httpClient: HttpClient,private modalService: NgbModal ,private fb: FormBuilder,private cookieService: CookieService
+
   ) {}
 
 
   ngOnInit(): void {
     this.getUserByUsername();
+
     this.getGroupes();
     this.getAllCategories();
     this.editForm = this.fb.group({
@@ -88,6 +92,7 @@ export class GroupesComponent implements OnInit{
       dateGr: [''] 
     });
   }
+
   getUserByUsername() {
     const username = this.cookieService.get('username');
 
@@ -108,6 +113,7 @@ export class GroupesComponent implements OnInit{
         }
       );
 }
+
   countMembers(members: any): number {
     return Object.keys(members).length;
   }
@@ -180,6 +186,7 @@ async onSubmit(f: NgForm): Promise<void> {
     description: formValue.description,
     dateGr: new Date().toISOString(),
     creator: { idUser: this.userId }, 
+
     categorieGroupe: { idCatGroupe: categoryId },
   };
 
@@ -241,7 +248,9 @@ onSave(): void {
     nom: formValue.nomGroupe,
     description: formValue.descGroupe,
     dateGr: formValue.dateGr,
+
     creator: { idUser: this.userId }, // Replace 1 with the actual user ID logic
+
     categorieGroupe: { idCatGroupe: categoryId } // Populate categorieGroupe with the selected category ID
 
   };
