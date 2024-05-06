@@ -1,18 +1,20 @@
 <div class="container">
-    <!-- Event Cards Section -->
-    <div class="row">
+  <!-- Event Cards Section -->
+  <div class="row">
       <div *ngFor="let event of events" class="col-md-4 mb-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">{{ event.titre }}</h5>
-            <p class="card-text">{{ event.description }}</p>
-            <p class="card-text"><small class="text-muted">Date: {{ event.dateEvent | date:'short' }}</small></p>
-            <p class="card-text">Thematique: {{ event.thematique }}</p>
-            <p class="card-text">Lieu: {{ event.lieu }}</p>
-            <p class="card-text">Type: {{ event.typeEvenement }}</p>
+          <div class="card h-100">
+              <div class="card-body">
+                  <h5 class="card-title">{{ event.titre }}</h5>
+                  <p class="card-text">{{ event.description }}</p>
+                  <p class="card-text"><small class="text-muted">Date: {{ event.dateEvent | date:'short' }}</small></p>
+                  <p class="card-text">Thematique: {{ event.thematique }}</p>
+                  <p class="card-text">Lieu: {{ event.lieu }}</p>
+                  <p class="card-text">Type: {{ event.typeEvenement }}</p>
+              </div>
+              <div class="card-footer">
+                  <button (click)="onButtonClick(event)" class="btn btn-primary btn-sm">Subscribe</button>
+              </div>
           </div>
-          <button (click)="onButtonClick(event)">ab3athh ya walid</button>
-        </div>
       </div>
-    </div>
+  </div>
 </div>

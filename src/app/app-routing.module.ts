@@ -19,13 +19,31 @@ import {BlogDetailsComponent} from "./Front/blog-details/blog-details.component"
 import {RendezvousFrontComponent} from "./Front/rendezvous-front/rendezvous-front.component";
 import {AboutComponent} from "./Front/about/about.component";
 import {ContactComponent} from "./Front/contact/contact.component";
+
 import { EventComponent } from './event/event.component';
 import { FronteventComponent } from './Front/frontevent/frontevent.component';
+
+import {SignInComponent} from "./Authentication/sign-in/sign-in.component";
+import {SignUpComponent} from "./Authentication/sign-up/sign-up.component";
+import {ProfileComponent} from "./Back/profile/profile.component";
+import {ForgotPasswordComponent} from "./Authentication/forgot-password/forgot-password.component";
+import {ResetPasswordComponent} from "./Authentication/reset-password/reset-password.component";
+import {RegistrationStatsComponent} from "./Back/registration-stats/registration-stats.component";
+import { GroupeComponent } from './Front/groupe/groupe.component';
+import { GroupeChatComponent } from './Front/groupe-chat/groupe-chat.component';
+import { CategorieComponent } from './Back/categorie/categorie.component';
+import { MessageComponent } from './Back/message/message.component';
+import { GroupesBackComponent } from './Back/groupes-back/groupes-back.component';
+
+
 
 
 const routes: Routes = [
 
-  { path: "jamel",
+
+ 
+  { path: "",
+
     component: AllFrontComponent,
     children:[
       {
@@ -33,6 +51,12 @@ const routes: Routes = [
         component: HomeComponent
       },
       {
+
+        path: "groupe",
+        component: GroupeComponent
+      },
+      {
+
         path: "blog",
         component: BlogComponent
       },
@@ -53,9 +77,17 @@ const routes: Routes = [
         component: ContactComponent
       },
       {
+
         path: "Event",
         component: FronteventComponent
-      }
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent
+      },
+      { path: 'groupesChat/:id', 
+      component: GroupeChatComponent },
+
     ]
   },
   {
@@ -67,10 +99,12 @@ const routes: Routes = [
         component: HomebackComponent
       },
       {
+
         path:"ShowEvent",
         component:EventComponent
       },
       {
+
         path: "users",
         component: UsersComponent
       },
@@ -78,7 +112,13 @@ const routes: Routes = [
         path: "tables",
         component: TablesComponent
       },
-      
+
+
+      {
+        path: "events",
+        component: EventsComponent
+      },
+
       {
         path: "inscriptions",
         component: InscriptionsComponent
@@ -106,9 +146,42 @@ const routes: Routes = [
       {
         path: "messages",
         component: MessagesComponent
+
+      },
+      {
+        path: "statsRegistration",
+        component: RegistrationStatsComponent
+      },
+      {
+        path: "categorie",
+        component: CategorieComponent
+      },
+      {
+        path: "message",
+        component: MessageComponent
+      },
+      {
+        path: "groupesBack",
+        component: GroupesBackComponent
+
       }
     ]
-  }
+  },
+  {
+    path: "signin",
+    component: SignInComponent
+  },
+  {
+    path: "signup",
+    component: SignUpComponent
+  },
+  {
+    path: "forgotpassword",
+    component: ForgotPasswordComponent
+  },
+  { path: 'reset-password',
+    component: ResetPasswordComponent }
+
 
 ];
 

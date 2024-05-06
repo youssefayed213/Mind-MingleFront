@@ -409,7 +409,7 @@ li {
     border-radius: 0;
     border: 0;
     background-color: white;
-    z-index: 1;
+
     opacity: 0;
     visibility: hidden;
   }
@@ -582,7 +582,7 @@ button:focus {
 }
 .hero-slider .content {
   position: relative;
-  z-index: 2;
+
 }
 .hero-slider .content.style h2 {
   font-size: 60px;
@@ -643,7 +643,7 @@ button:focus {
 }
 .hero-slider .slick-prev {
   left: 20px;
-  z-index: 100;
+
 }
 .hero-slider .slick-prev:before {
   content: "\f053";
@@ -652,7 +652,7 @@ button:focus {
 }
 .hero-slider .slick-next {
   right: 20px;
-  z-index: 100;
+
 }
 .hero-slider .slick-next:before {
   content: "\f054";
@@ -785,12 +785,16 @@ button:focus {
   margin-bottom: 20px;
 }
 
+<<<<<<< HEAD
 .form-control {
   box-shadow: none;
   border-radius: 0;
   padding: 15px 20px;
   font-size: 14px;
 }
+=======
+
+>>>>>>> d0fb0abf76bf3584bfbcac49de6305565a596b73
 .form-control:focus {
   box-shadow: none;
   border: 1px solid #48bdc5;
@@ -882,7 +886,7 @@ button:focus {
   padding: 0px;
   margin-top: -56px;
   margin-bottom: -50px;
-  z-index: 11;
+
 }
 
 .service-tab-section {
@@ -890,7 +894,7 @@ button:focus {
 }
 .service-tab-section .outer-box {
   position: relative;
-  z-index: 1;
+
 }
 
 .tabs .nav-tabs > li,
@@ -926,7 +930,7 @@ button:focus {
   position: relative;
   float: left;
   width: 100%;
-  z-index: 99;
+
 }
 
 .service-box {
@@ -1467,7 +1471,7 @@ button:focus {
 .team-section {
   position: relative;
   background: #ffffff;
-  z-index: 1;
+
 }
 .team-section .section-title h3 {
   position: relative;
@@ -2175,7 +2179,7 @@ button:focus {
   position: relative;
   padding: 55px;
   margin-bottom: 28px;
-  z-index: 1;
+
   cursor: pointer;
   background-size: cover !important;
   background-repeat: no-repeat !important;
@@ -2200,7 +2204,7 @@ button:focus {
   content: "";
   width: 100%;
   height: 100%;
-  z-index: -1;
+
   transition: all 1500ms ease;
   background: linear-gradient(to right, rgba(122, 102, 203, 0.8) 0%, rgba(72, 189, 197, 0.74) 100%);
 }
@@ -2311,7 +2315,7 @@ button:focus {
 }
 .promo-video .block {
   position: relative;
-  z-index: 10;
+
 }
 .promo-video h6,
 .promo-video h1,
@@ -2380,7 +2384,7 @@ button:focus {
 }
 .gallery .gallery-item h3 {
   position: absolute;
-  z-index: 5;
+
   bottom: 85px;
   color: #fff;
   font-weight: bold;
@@ -2392,7 +2396,7 @@ button:focus {
 }
 .gallery .gallery-item p {
   position: absolute;
-  z-index: 5;
+
   bottom: 20px;
   color: #fff;
   font-weight: normal;
@@ -2445,7 +2449,7 @@ button:focus {
   left: 50%;
   transform: translate3d(-50%, -50%, 0);
   text-align: center;
-  z-index: 5;
+
   border: 5px solid #fff;
   border-radius: 50%;
   transition: all 0.3s ease-in-out;
@@ -2477,7 +2481,7 @@ button:focus {
 
 .work-skill {
   position: relative;
-  z-index: 1;
+
   background-size: cover !important;
   background-repeat: no-repeat !important;
 }
@@ -2488,7 +2492,6 @@ button:focus {
   width: 100%;
   height: 100%;
   content: "";
-  z-index: -1;
   background: linear-gradient(to right, rgba(122, 102, 203, 0.8) 0%, rgba(72, 189, 197, 0.74) 100%);
 }
 .work-skill .pie-value {
@@ -2622,7 +2625,7 @@ button:focus {
 .footer-main {
   position: relative;
   background-size: cover;
-  z-index: 1;
+
   background: #132646;
 }
 .footer-main .footer-top {
@@ -2759,7 +2762,7 @@ button:focus {
   top: 0px;
   left: 0px;
   display: flex;
-  z-index: 99;
+
   align-items: center;
   justify-content: center;
   background: linear-gradient(to right, rgba(122, 102, 203, 0.8) 0%, rgba(72, 189, 197, 0.74) 100%);
@@ -2829,7 +2832,7 @@ button:focus {
   border: 1px solid #7b64cb;
   background: #7b64cb;
   text-align: center;
-  z-index: 100;
+
   cursor: pointer;
   display: none;
   border-radius: 25px;
@@ -2846,7 +2849,6 @@ button:focus {
   position: fixed;
   bottom: 30px;
   right: 30px;
-  z-index: 999;
   height: 40px;
   width: 40px;
   background: #48bdc5;
@@ -3032,7 +3034,6 @@ button:focus {
     width: 100%;
     padding: 0px;
     right: 0px;
-    z-index: 12;
   }
 
   .main-menu .navbar-header .navbar-toggle {
