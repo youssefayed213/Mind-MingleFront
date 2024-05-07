@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {RendezVous} from "../../models/RendezVous";
 import {ActivatedRoute, Router} from "@angular/router";
 import {RendezVousService} from "../../service/RendezVous/rendez-vous.service";
+import { CookieService } from 'ngx-cookie-service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-update-rendez-vous-back',
@@ -10,12 +12,12 @@ import {RendezVousService} from "../../service/RendezVous/rendez-vous.service";
   styleUrls: ['./update-rendez-vous-back.component.css']
 })
 export class UpdateRendezVousBackComponent {
-  idUser: number = 31; // Exemple d'ID utilisateur, ajustez selon votre cas d'utilisation
   idRdv: number | undefined;
   rendezVousForm: FormGroup;
   rendezVous: RendezVous | undefined;
 
-  constructor(
+  constructor(  private cookieService: CookieService,
+    private httpClient: HttpClient,
     private route: ActivatedRoute,
     private router: Router,
     private rendezVousService: RendezVousService,
@@ -28,12 +30,32 @@ export class UpdateRendezVousBackComponent {
     });
   }
 
+userId: number = 0; 
+getUserByUsername() {
+  const username = this.cookieService.get('username');
+
+  // Make the HTTP GET request to the provided URL
+  this.httpClient.get<any>('http://localhost:8085/minds/api/home/findByUsername/' + username)
+    .subscribe(
+      (response) => {
+        // Extract the idUser field from the response
+        this.userId = response.idUser;
+        // Log the idUser to the console
+        console.log('User ID:', response);
+      },
+      (error) => {
+        // Handle errors if any
+        console.error('Error fetching user:', error);
+      }
+    );
+}
+
   ngOnInit(): void {
     const idRdvParam = this.route.snapshot.paramMap.get('idRdv');
     if (idRdvParam) {
       this.idRdv = +idRdvParam;
       if (this.idRdv) {
-        this.rendezVousService.getRendezVousByUserIdAndId(this.idUser, this.idRdv).subscribe(
+        this.rendezVousService.getRendezVousByUserIdAndId(this.userId, this.idRdv).subscribe(
           (data: RendezVous) => {
             if (data) {
               this.rendezVous = data;
@@ -67,7 +89,7 @@ export class UpdateRendezVousBackComponent {
         lieu: this.rendezVousForm.value.lieu
       };
 
-      this.rendezVousService.updateRendezVous(this.idUser, updatedRendezVous).subscribe(
+      this.rendezVousService.updateRendezVous(this.userId, updatedRendezVous).subscribe(
         (data: RendezVous) => {
           console.log('Rendez-vous mis à jour avec succès', data);
           this.router.navigate(['/list-rendezvous']);

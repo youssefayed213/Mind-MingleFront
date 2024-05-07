@@ -3,6 +3,7 @@ import {Feedback} from "../../models/Feedback";
 import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FeedbackService} from "../../service/Feedback/feedback.service";
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-list-feedback-par-rendez-vous',
@@ -11,19 +12,39 @@ import {FeedbackService} from "../../service/Feedback/feedback.service";
 })
 export class ListFeedbackParRendezVousComponent implements OnInit {
   feedback: any;
-  idUser = 31; // Exemple d'ID utilisateur, ajustez selon votre cas d'utilisation
 
-  constructor(
+  constructor(  private cookieService: CookieService,
+    private httpClient: HttpClient,
     private route: ActivatedRoute,
     private feedbackService: FeedbackService,
     private router: Router
   ) { }
 
+userId: number = 0; 
+getUserByUsername() {
+  const username = this.cookieService.get('username');
+
+  // Make the HTTP GET request to the provided URL
+  this.httpClient.get<any>('http://localhost:8085/minds/api/home/findByUsername/' + username)
+    .subscribe(
+      (response) => {
+        // Extract the idUser field from the response
+        this.userId = response.idUser;
+        // Log the idUser to the console
+        console.log('User ID:', response);
+      },
+      (error) => {
+        // Handle errors if any
+        console.error('Error fetching user:', error);
+      }
+    );
+}
   ngOnInit(): void {
+    this.getUserByUsername();
     const idRdvParam = this.route.snapshot.paramMap.get('idRdv');
     if (idRdvParam!== null) {
       const idRdv = +idRdvParam; // Convertit la chaîne en nombre
-      this.feedbackService.getFeedbackByIdUserAndIdRdv(this.idUser, idRdv).subscribe(data => {
+      this.feedbackService.getFeedbackByIdUserAndIdRdv(this.userId, idRdv).subscribe(data => {
         this.feedback = data;
       });
     } else {

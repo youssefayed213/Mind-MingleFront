@@ -3,6 +3,8 @@ import {RendezVous} from "../../models/RendezVous";
 import {RendezVousService} from "../../service/RendezVous/rendez-vous.service";
 import {Router} from "@angular/router";
 import {User} from "../../models/User";
+import { CookieService } from 'ngx-cookie-service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-list-rendezvous',
@@ -16,12 +18,33 @@ export class ListRendezvousComponent {
 
 
 
-  constructor(private service: RendezVousService, private router: Router) { }
+  constructor(  private cookieService: CookieService,
+    private httpClient: HttpClient,private service: RendezVousService, private router: Router) { }
 
   ngOnInit() {
     this.getAllRendezVous();
-
+    this.getUserByUsername();
   }
+
+userId: number = 0; 
+getUserByUsername() {
+  const username = this.cookieService.get('username');
+
+  // Make the HTTP GET request to the provided URL
+  this.httpClient.get<any>('http://localhost:8085/minds/api/home/findByUsername/' + username)
+    .subscribe(
+      (response) => {
+        // Extract the idUser field from the response
+        this.userId = response.idUser;
+        // Log the idUser to the console
+        console.log('User ID:', response);
+      },
+      (error) => {
+        // Handle errors if any
+        console.error('Error fetching user:', error);
+      }
+    );
+}
   getAllRendezVous(): void {
     this.service.getAllRendezVous().subscribe(
       (data: RendezVous[]) => {
@@ -40,13 +63,12 @@ export class ListRendezvousComponent {
   }
 
   deleteRendezvous(idRdv: number): void {
-    const idUser = 31;
-    if (idUser && idRdv) {
-      this.service.deleteRendezVous(idUser, idRdv).subscribe(
+    if (this.userId && idRdv) {
+      this.service.deleteRendezVous(this.userId, idRdv).subscribe(
         (response: any) => {
           console.log(response); // Afficher la réponse du serveur (ex. "Rendez-vous avec l'id 48 pour l'utilisateur 31 a été supprimé")
           this.rendezvous = this.rendezvous.filter(rendezvous => rendezvous.idRdv !== idRdv);
-          console.log(`Rendez-vous avec ID ${idRdv} supprimé pour l'utilisateur ${idUser}.`);
+          console.log(`Rendez-vous avec ID ${idRdv} supprimé pour l'utilisateur ${this.userId}.`);
         },
         error => {
           console.error('Erreur lors de la suppression du rendez-vous', error);

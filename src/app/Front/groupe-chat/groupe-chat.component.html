@@ -1,0 +1,106 @@
+
+<div class="container" *ngIf="groupDetails">
+    <div class="row clearfix">
+        <div class="col-lg-12">
+            <div class="card chat-app">
+                <div id="plist" class="people-list">
+                    <div class="input-group">
+    
+                      <input type="search" [(ngModel)]="searchTerm" class="form-control" placeholder="Search...">
+                    </div>
+                    <ul class="list-unstyled chat-list mt-2 mb-0"  *ngFor="let member of groupDetails.members | keyvalue | filter: searchTerm">
+                        <li class="clearfix active" >
+                            <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
+                            <div class="about">
+                                <div class="name">{{ member.value }}</div>
+                                <div class="status"> <i class="fa fa-circle online"></i> online </div>
+                            </div>
+                        </li>
+                                   
+                    </ul>
+                </div>
+                <div class="chat" >
+                    <div class="chat-header clearfix" >
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="chat-about" >
+                                    <h6 class="m-b-0">Groupe : {{ groupDetails.nom }}</h6>
+                                    <small>Category : {{ groupDetails.categorieGroupe }}</small>
+                                </div>
+                            </div>
+    
+                        </div>
+                    </div>
+                    <div class="chat-history" >
+                      <ul class="m-b-0"*ngFor="let message of messages">
+                        <li class="clearfix" >
+                          <div *ngIf="message.idUser !== this.userId">
+                            <div class="message-data">
+                              <span class="message-data-time">{{ message.createdAt | date: 'medium' }}</span>
+                            </div>
+                            <div class="message my-message">
+                              <b>{{ message.userName }} : </b> {{ message.contenuMsg }}
+                            </div>
+  
+                          </div>
+  
+                    </li>
+                    <li class="clearfix" >
+                          <div *ngIf="message.idUser == this.userId">
+                            <div class="message-data text-right">
+                              <span class="message-data-time float-right">{{ message.createdAt | date: 'medium' }}</span>
+                            </div>
+                            <br><br>
+                            <div class="message other-message float-right">
+                              <b>You :  </b>{{ message.contenuMsg }}
+                            </div>
+                            <br><br><br>
+                            <button class="btn btn-sm btn-outline-primary float-right" (click)="openEdit(contentEdit,this.message)">Edit</button>
+  
+                          </div>
+                          
+                        </li>
+                      </ul>
+                      <div class="chat-message clearfix">
+                        <div class="input-group mb-0">
+                            
+                            <input type="text" class="form-control" [(ngModel)]="messageContent" placeholder="Enter text here...">
+                            <div class="input-group-prepend">
+                              <button class="fa fa-send" [disabled]="!messageContent" (click)="postMessage(messageContent)">
+                                <i></i> Send</button>
+                            </div>                                    
+                        </div>
+                    </div>
+                      
+                    </div>
+                    
+                    
+    
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+  <!-- Edit Message Modal -->
+  
+    <ng-template #contentEdit let-modal>
+      <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Update Message</h4>
+          <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="editForm" novalidate (ngSubmit)="onSave()">
+              <div class="form-group">
+                <label for="contenuMsg">Message content</label>
+                <div class="input-group">
+                  <input type="text" id="contenuMsg" class="form-control" formControlName="contenuMsg" >
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-outline-dark" >Submit</button>
+              </div>
+            </form>
+            
+      </div>
+     
+    </ng-template>

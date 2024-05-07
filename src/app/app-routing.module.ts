@@ -30,9 +30,31 @@ import {
 } from "./Crud/list-feedback-par-rendez-vous/list-feedback-par-rendez-vous.component";
 
 
+import { EventComponent } from './event/event.component';
+import { FronteventComponent } from './Front/frontevent/frontevent.component';
+
+import {SignInComponent} from "./Authentication/sign-in/sign-in.component";
+import {SignUpComponent} from "./Authentication/sign-up/sign-up.component";
+import {ProfileComponent} from "./Back/profile/profile.component";
+import {ForgotPasswordComponent} from "./Authentication/forgot-password/forgot-password.component";
+import {ResetPasswordComponent} from "./Authentication/reset-password/reset-password.component";
+import {RegistrationStatsComponent} from "./Back/registration-stats/registration-stats.component";
+import { GroupeComponent } from './Front/groupe/groupe.component';
+import { GroupeChatComponent } from './Front/groupe-chat/groupe-chat.component';
+import { CategorieComponent } from './Back/categorie/categorie.component';
+import { MessageComponent } from './Back/message/message.component';
+import { GroupesBackComponent } from './Back/groupes-back/groupes-back.component';
+
+
+
+
 const routes: Routes = [
 
+
+
+ 
   { path: "",
+
     component: AllFrontComponent,
     children:[
       {
@@ -40,6 +62,13 @@ const routes: Routes = [
         component: HomeComponent
       },
       {
+
+
+        path: "groupe",
+        component: GroupeComponent
+      },
+      {
+
         path: "blog",
         component: BlogComponent
       },
@@ -62,6 +91,7 @@ const routes: Routes = [
       {
         path: "add-feedback/:idRdv",
         component: AddFeedbackComponent
+
       },
       {
         path: "about",
@@ -70,11 +100,23 @@ const routes: Routes = [
       {
         path: "contact",
         component: ContactComponent
-      }
+      },
+      {
+
+        path: "Event",
+        component: FronteventComponent
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent
+      },
+      { path: 'groupesChat/:id', 
+      component: GroupeChatComponent },
+
     ]
   },
   {
-    path: "",
+    path: "admin",
     component: AllBackComponent,
     children: [
       {
@@ -82,6 +124,13 @@ const routes: Routes = [
         component: HomebackComponent
       },
       {
+
+
+        path:"ShowEvent",
+        component:EventComponent
+      },
+      {
+
         path: "users",
         component: UsersComponent
       },
@@ -93,6 +142,7 @@ const routes: Routes = [
         path: "events",
         component: EventsComponent
       },
+
       {
         path: "inscriptions",
         component: InscriptionsComponent
@@ -107,6 +157,7 @@ const routes: Routes = [
       },
       {
         path: "rendezvous",
+
         component: ListRendezVousBackComponent
       },
       {
@@ -116,6 +167,7 @@ const routes: Routes = [
       {
         path: "List-Feedback-Rendezvous/:idRdv",
         component: ListFeedbackParRendezVousComponent
+
       },
       {
         path: "groupes",
@@ -128,9 +180,42 @@ const routes: Routes = [
       {
         path: "messages",
         component: MessagesComponent
+
+      },
+      {
+        path: "statsRegistration",
+        component: RegistrationStatsComponent
+      },
+      {
+        path: "categorie",
+        component: CategorieComponent
+      },
+      {
+        path: "message",
+        component: MessageComponent
+      },
+      {
+        path: "groupesBack",
+        component: GroupesBackComponent
+
       }
     ]
-  }
+  },
+  {
+    path: "signin",
+    component: SignInComponent
+  },
+  {
+    path: "signup",
+    component: SignUpComponent
+  },
+  {
+    path: "forgotpassword",
+    component: ForgotPasswordComponent
+  },
+  { path: 'reset-password',
+    component: ResetPasswordComponent }
+
 
 ];
 

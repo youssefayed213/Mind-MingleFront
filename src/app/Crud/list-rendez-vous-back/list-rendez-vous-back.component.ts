@@ -4,6 +4,8 @@ import {RendezVousService} from "../../service/RendezVous/rendez-vous.service";
 import {Router} from "@angular/router";
 import {style} from "@angular/animations";
 import {FeedbackService} from "../../service/Feedback/feedback.service";
+import { CookieService } from 'ngx-cookie-service';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -15,10 +17,12 @@ export class ListRendezVousBackComponent  {
   rendezvous: RendezVous[] = [];
   feedbackStats: Map<string, number> = new Map()// Initialisation du tableau
 
-  constructor(private service: RendezVousService, private feedbackService: FeedbackService, private router: Router){ }
+  constructor(  private cookieService: CookieService,
+    private httpClient: HttpClient,private service: RendezVousService, private feedbackService: FeedbackService, private router: Router){ }
 
   ngOnInit(): void {
     this.getAllRendezVous();
+    this.getUserByUsername();
   }
 
   getAllRendezVous(): void {
@@ -33,16 +37,35 @@ export class ListRendezVousBackComponent  {
     );
   }
 
+userId: number = 0; 
+getUserByUsername() {
+  const username = this.cookieService.get('username');
+
+  // Make the HTTP GET request to the provided URL
+  this.httpClient.get<any>('http://localhost:8085/minds/api/home/findByUsername/' + username)
+    .subscribe(
+      (response) => {
+        // Extract the idUser field from the response
+        this.userId = response.idUser;
+        // Log the idUser to the console
+        console.log('User ID:', response);
+      },
+      (error) => {
+        // Handle errors if any
+        console.error('Error fetching user:', error);
+      }
+    );
+}
+
   deleteRendezvous(idRdv: number): void {
     console.log('deleteRendezvous called with idRdv:', idRdv);
-    const idUser = 31;
-    if (idUser && idRdv) {
-      this.service.deleteRendezVous(idUser, idRdv).subscribe(
+    if (this.userId && idRdv) {
+      this.service.deleteRendezVous(this.userId, idRdv).subscribe(
         (response: any) => {
           console.log(response);
           // Filtrer le rendez-vous supprimé du tableau
           this.rendezvous = this.rendezvous.filter(rdv => rdv.idRdv !== idRdv);
-          console.log(`Rendez-vous avec ID ${idRdv} supprimé pour l'utilisateur ${idUser}.`);
+          console.log(`Rendez-vous avec ID ${idRdv} supprimé pour l'utilisateur ${this.userId}.`);
         },
         error => {
           console.error('Erreur lors de la suppression du rendez-vous', error);

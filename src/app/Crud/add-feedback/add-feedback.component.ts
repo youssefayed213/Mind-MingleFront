@@ -4,6 +4,8 @@ import { NoteFeedback } from "../../models/NoteFeedback";
 import { FeedbackService } from "../../service/Feedback/feedback.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import {ActivatedRoute, Router} from '@angular/router'; // Importez ActivatedRoute
+import { CookieService } from 'ngx-cookie-service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-add-feedback',
@@ -17,6 +19,8 @@ export class AddFeedbackComponent implements OnInit {
   idRdv!: number;
 
   constructor(
+    private cookieService: CookieService,
+    private httpClient: HttpClient,
     private formBuilder: FormBuilder,
     private feedbackService: FeedbackService,
     private route: ActivatedRoute,
@@ -24,6 +28,7 @@ export class AddFeedbackComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getUserByUsername();
     this.route.params.subscribe(params => {
       if (params['idRdv']) {
         this.idRdv = +params['idRdv']; // Convertir l'identifiant en nombre (suppose 'id' est le paramètre d'URL)
@@ -39,6 +44,26 @@ export class AddFeedbackComponent implements OnInit {
     });
   }
 
+
+userId: number = 0; 
+getUserByUsername() {
+  const username = this.cookieService.get('username');
+
+  // Make the HTTP GET request to the provided URL
+  this.httpClient.get<any>('http://localhost:8085/minds/api/home/findByUsername/' + username)
+    .subscribe(
+      (response) => {
+        // Extract the idUser field from the response
+        this.userId = response.idUser;
+        // Log the idUser to the console
+        console.log('User ID:', response);
+      },
+      (error) => {
+        // Handle errors if any
+        console.error('Error fetching user:', error);
+      }
+    );
+}
   addFeedback(): void {
     console.log('ID du rendez-vous :', this.idRdv);
     if (this.feedbackForm.valid && this.idRdv) { // Vérifiez que rdvId est définie
@@ -46,8 +71,7 @@ export class AddFeedbackComponent implements OnInit {
 
       const feedback = new Feedback(undefined, commentaire, note, dateFeedback);
 
-      const idUser = 31; // Définissez l'id de l'utilisateur (par exemple, idUser = 31)
-      this.feedbackService.addFeedback(idUser, this.idRdv, feedback)
+      this.feedbackService.addFeedback(this.userId, this.idRdv, feedback)
         .subscribe(
           (newFeedback: Feedback) => {
             console.log('Feedback ajouté avec succès :', newFeedback);

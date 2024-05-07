@@ -3,11 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RendezVousService } from 'src/app/service/RendezVous/rendez-vous.service';
 import { RendezVous } from '../../models/RendezVous';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { User } from "../../models/User";
-import { RoleUser } from '../../models/Role';
 import {DatePipe, formatDate} from "@angular/common";
 import {TypeRdv} from "../../models/TypeRdv";
+import { CookieService } from 'ngx-cookie-service';
 
 // Assurez-vous d'importer le modèle User ici
 
@@ -19,7 +19,9 @@ import {TypeRdv} from "../../models/TypeRdv";
 export class AddRendezVousComponent {
   rendezVousForm: FormGroup;
 
-  constructor(
+
+  constructor(private cookieService: CookieService,
+    private httpClient: HttpClient,
     private formBuilder: FormBuilder,
     private router: Router,
     private rendezVousService: RendezVousService,
@@ -32,6 +34,30 @@ export class AddRendezVousComponent {
     });
   }
 
+  ngOnInit(): void {
+
+    this.getUserByUsername();
+
+  }
+  userId: number = 0; 
+  getUserByUsername() {
+    const username = this.cookieService.get('username');
+
+    // Make the HTTP GET request to the provided URL
+    this.httpClient.get<any>('http://localhost:8085/minds/api/home/findByUsername/' + username)
+      .subscribe(
+        (response) => {
+          // Extract the idUser field from the response
+          this.userId = response.idUser;
+          // Log the idUser to the console
+          console.log('User ID:', response);
+        },
+        (error) => {
+          // Handle errors if any
+          console.error('Error fetching user:', error);
+        }
+      );
+}
   addRendezVous(): void {
     if (this.rendezVousForm.valid) {
       const rendezVousData = this.rendezVousForm.value;
@@ -42,8 +68,7 @@ export class AddRendezVousComponent {
         return;
       }
       rendezVousData.typeRdv = typeRdvEnum;
-      const userId = 31;
-      this.rendezVousService.addRendezVous(userId, rendezVousData)
+      this.rendezVousService.addRendezVous(this.userId, rendezVousData)
         .subscribe(
           response => {
             console.log('Rendez-vous ajouté avec succès : ', response);
