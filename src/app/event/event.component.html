@@ -1,0 +1,126 @@
+<div class="container">
+  <!-- Event Cards Section -->
+  <div class="row">
+    <div *ngFor="let event of events" class="col-md-4 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ event.titre }}</h5>
+          <p class="card-text">{{ event.description }}</p>
+          <p class="card-text"><small class="text-muted">Date: {{ event.dateEvent | date:'short' }}</small></p>
+          <p class="card-text">Thematique: {{ event.thematique }}</p>
+          <p class="card-text">Lieu: {{ event.lieu }}</p>
+          <p class="card-text">Type: {{ event.typeEvenement }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form for adding new events -->
+  <form #eventForm="ngForm" (ngSubmit)="addEvent(eventForm.value)" class="mb-3">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="titre">Title</label>
+          <input type="text" [(ngModel)]="newEvent.titre" name="titre" id="titre" placeholder="Title" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <input type="text" [(ngModel)]="newEvent.description" name="description" id="description" placeholder="Description" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="dateEvent">Date</label>
+          <input type="date" [(ngModel)]="newEvent.dateEvent" name="dateEvent" id="dateEvent" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="thematique">Thematique</label>
+          <select [(ngModel)]="newEvent.thematique" name="thematique" id="thematique" class="form-control">
+            <option value="Sport">Sport</option>
+            <option value="Love">Love</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="lieu">Location</label>
+          <input type="text" [(ngModel)]="newEvent.lieu" name="lieu" id="lieu" placeholder="Location" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="typeEvenement">Type</label>
+          <select [(ngModel)]="newEvent.typeEvenement" name="typeEvenement" id="typeEvenement" class="form-control">
+            <option value="Presentielle">Presentielle</option>
+            <option value="EN_LIGNE">EN_LIGNE</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Event</button>
+  </form>
+
+  <!-- Form for updating an event -->
+  <form *ngIf="updatingEvent" #updateForm="ngForm" (ngSubmit)="updateEvent(updateForm.value)" class="mb-3">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="updateTitre">Title</label>
+          <input type="text" [(ngModel)]="updatingEvent.titre" name="titre" id="updateTitre" placeholder="Title" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="updateDescription">Description</label>
+          <input type="text" [(ngModel)]="updatingEvent.description" name="description" id="updateDescription" placeholder="Description" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="updateDateEvent">Date</label>
+          <input type="date" [(ngModel)]="updatingEvent.dateEvent" name="dateEvent" id="updateDateEvent" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="updateThematique">Thematique</label>
+          <select [(ngModel)]="updatingEvent.thematique" name="thematique" id="updateThematique" class="form-control">
+            <option value="Sport">Sport</option>
+            <option value="Love">Love</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="updateLieu">Location</label>
+          <input type="text" [(ngModel)]="updatingEvent.lieu" name="lieu" id="updateLieu" placeholder="Location" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="updateTypeEvenement">Type</label>
+          <select [(ngModel)]="updatingEvent.typeEvenement" name="typeEvenement" id="updateTypeEvenement" class="form-control">
+            <option value="Presentielle">Presentielle</option>
+            <option value="EN_LIGNE">EN_LIGNE</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Update Event</button>
+  </form>
+
+  <!-- Table for displaying all events -->
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <!-- Add more headers for other properties -->
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let event of events">
+            <td>{{ event.titre }}</td>
+            <td>{{ event.description }}</td>
+            <!-- Add more cells for other properties -->
+            <td>
+              <button (click)="updatingEvent = event" class="btn btn-warning">Update</button>
+              <button (click)="deleteEvent(event.idEvent)" class="btn btn-danger">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

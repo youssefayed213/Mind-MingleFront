@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpErrorResponse } from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import { PostService } from "../../service/Post/post.service";
 import { Post, TypePost } from 'src/app/model/Post';
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-add-post',
@@ -14,11 +15,12 @@ export class AddPostComponent {
   BlocForm: FormGroup;
   formSubmitted = false;
   typePostValues: string[] = [];
-
+  userId: number = 0;
   constructor(
     private service: PostService,
     private router: Router,
     private fb: FormBuilder,
+    private httpClient: HttpClient,private cookieService: CookieService
   ) {
     let formControls = {
       titre: new FormControl('', [
@@ -36,6 +38,29 @@ export class AddPostComponent {
     this.typePostValues = Object.values(TypePost).filter(value => typeof value === 'string') as string[];
   }
 
+  ngOnInit(): void {
+    this.getUserByUsername();
+  }
+
+  getUserByUsername() {
+    const username = this.cookieService.get('username');
+
+    // Make the HTTP GET request to the provided URL
+    this.httpClient.get<any>('http://localhost:8085/minds/api/home/findByUsername/' + username)
+      .subscribe(
+        (response) => {
+          // Extract the idUser field from the response
+          this.userId = response.idUser;
+
+          // Log the idUser to the console
+          console.log('User ID:', this.userId);
+        },
+        (error) => {
+          // Handle errors if any
+          console.error('Error fetching user:', error);
+        }
+      );
+  }
   get titre() { return this.BlocForm.get('titre'); }
   get description() { return this.BlocForm.get('description'); }
   get typePost() { return this.BlocForm.get('typePost'); }
@@ -72,8 +97,8 @@ export class AddPostComponent {
       typePost: data.typePost as TypePost, // Utilisez le type TypePost
     };
 
-    const userId = 1; // Remplacez 1 par l'ID de l'utilisateur connecté
-    this.service.addPostWithImageToUser(userId, newPost, data.imageFile).subscribe(
+
+    this.service.addPostWithImageToUser(this.userId, newPost, data.imageFile).subscribe(
       res => {
         console.log(res);
         console.log('Ajout réussi ', res);

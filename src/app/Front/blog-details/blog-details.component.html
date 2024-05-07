@@ -70,6 +70,7 @@
             <div class="item-holder">
               <div class="image-box">
                 <figure>
+
                   <a href="single-blog.html">
                     <!-- Afficher l'image dynamiquement -->
                     <img loading="lazy" class="img-fluid" [src]="'/assets/Front/images/blog/' + (post$ | async)?.image" alt="">
@@ -78,7 +79,8 @@
               </div>
               <div class="content-text">
                 <h4>{{ (post$ | async)?.titre }}</h4>
-                <span>By  {{ (post$ | async)?.datePost | date:'dd MMMM yyyy' }}</span>
+                <span>By {{ (post$ | async)?.user?.prenomUser }} </span>
+                <span>{{ (post$ | async)?.datePost | date:'dd MMMM yyyy' }}</span>
                 <p>{{ (post$ | async)?.description }}</p>
               </div>
               <button class="btn-style-one" (click)="navigateToUpdatePost()">Update Now</button>
@@ -93,6 +95,7 @@
             <div class="comment" *ngFor="let commentaire of commentaires$ | async">
               <div class="image-text">
                 <h6>
+                  <span>By {{ commentaire.user?.prenomUser }} </span>
                   <span>{{ commentaire.dateComment | date: 'MMMM dd, yyyy' }}</span>
                 </h6>
                 <p>{{ commentaire.contenu }}</p>
@@ -111,6 +114,7 @@
               <div class="row">
                 <div class="col-lg-12">
                   <div class="form-group">
+
                     <textarea name="form_message" class="form-control textarea" placeholder="Your Review" required [(ngModel)]="formMessage"></textarea>
                   </div>
                 </div>
@@ -127,15 +131,9 @@
             </form>
           </div>
 
-
-
-
-
-
-
-
         </div>
       </div>
+
 
     </div>
   </section>

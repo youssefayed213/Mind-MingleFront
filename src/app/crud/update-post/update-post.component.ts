@@ -4,6 +4,8 @@ import { PostService } from "../../service/Post/post.service";
 import { Observable } from "rxjs";
 import { TypePost } from "../../model/Post";
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import {CookieService} from "ngx-cookie-service";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-update-post',
@@ -17,8 +19,9 @@ export class UpdatePostComponent implements OnInit {
   imageFile: File;
   typePostOptions: string[] = [];
   BlocForm: FormGroup;
-
-  constructor(private route: ActivatedRoute, private postService: PostService ,   private router: Router) {
+  userId: number = 0;
+  constructor(private route: ActivatedRoute, private postService: PostService ,   private router: Router,
+              private httpClient: HttpClient,private cookieService: CookieService) {
     this.idPost = 0;
     this.imageFile = new File([], 'default');
     this.typePostOptions = Object.values(TypePost).filter(value => typeof value === 'string') as string[];
@@ -50,7 +53,27 @@ export class UpdatePostComponent implements OnInit {
     } else {
       console.error("Parameter 'idPost' is missing in the URL.");
     }
+    this.getUserByUsername();
   }
+  getUserByUsername() {
+    const username = this.cookieService.get('username');
+
+    // Make the HTTP GET request to the provided URL
+    this.httpClient.get<any>('http://localhost:8085/minds/api/home/findByUsername/' + username)
+      .subscribe(
+        (response) => {
+          // Extract the idUser field from the response
+          this.userId = response.idUser;
+          // Log the idUser to the console
+          console.log('User ID:', this.userId);
+        },
+        (error) => {
+          // Handle errors if any
+          console.error('Error fetching user:', error);
+        }
+      );
+  }
+
 
   getOriginalPost(): Observable<any> {
     return this.postService.getPostById(this.idPost);

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from "rxjs";
 import { PostService } from "../../service/Post/post.service";
@@ -6,6 +7,8 @@ import { CommentaireService } from "../../service/Commentaire/commentaire.servic
 import { Post } from "../../model/Post";
 import { Commentaire } from "../../model/Commentaire";
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-blog-details',
@@ -14,17 +17,19 @@ import { Router } from '@angular/router';
 })
 export class BlogDetailsComponent {
 
+
   postId?: number;
   post$?: Observable<Post>;
   commentaires$?: Observable<Commentaire[]>;
   formMessage: string = '';
   editingCommentId: number | null = null; // Ajouter une variable pour stocker l'ID du commentaire en cours d'édition
 
+  userId: number = 0;
   constructor(
     private route: ActivatedRoute,
     private postService: PostService,
     private commentaireService: CommentaireService,
-    private router: Router
+    private router: Router,private httpClient: HttpClient,private cookieService: CookieService
 
   ) {}
 
@@ -37,8 +42,26 @@ export class BlogDetailsComponent {
     } else {
       console.error("postId is undefined");
     }
+    this.getUserByUsername();
   }
+  getUserByUsername() {
+    const username = this.cookieService.get('username');
 
+    // Make the HTTP GET request to the provided URL
+    this.httpClient.get<any>('http://localhost:8085/minds/api/home/findByUsername/' + username)
+      .subscribe(
+        (response) => {
+          // Extract the idUser field from the response
+          this.userId = response.idUser;
+          // Log the idUser to the console
+          console.log('User ID:', this.userId);
+        },
+        (error) => {
+          // Handle errors if any
+          console.error('Error fetching user:', error);
+        }
+      );
+  }
   loadPostDetails(): void {
     if (typeof this.postId === 'number') {
       this.post$ = this.postService.retrievePost(this.postId);
@@ -59,9 +82,9 @@ export class BlogDetailsComponent {
 
   addCommentToPost(comment: string): void {
     if (this.postId) {
-      const userId = 2; // Remplacez 1 par l'ID de l'utilisateur connecté
+
       const newComment = new Commentaire(undefined, comment, new Date());
-      this.commentaireService.addComment(this.postId, userId, newComment).subscribe(
+      this.commentaireService.addComment(this.postId, this.userId, newComment).subscribe(
         res => {
           console.log('Commentaire ajouté avec succès:', res);
           this.loadPostDetails();
@@ -80,13 +103,13 @@ export class BlogDetailsComponent {
 
   deleteComment(idComment: number): void {
     if (this.postId) {
-      const idUser = 2; // Remplacez 1 par l'ID de l'utilisateur connecté
+
 
       // Afficher une fenêtre de confirmation
       const confirmDelete = confirm('Êtes-vous sûr de vouloir supprimer ce commentaire ?');
 
       if (confirmDelete) {
-        this.commentaireService.deleteComment(idComment, idUser).subscribe(
+        this.commentaireService.deleteComment(idComment, this.userId).subscribe(
           res => {
             console.log('Commentaire supprimé avec succès:', res);
 
@@ -121,9 +144,9 @@ export class BlogDetailsComponent {
 
   updateComment(): void {
     if (this.postId && this.editingCommentId !== null) {
-      const idUser = 2; // Déclarez la variable idUser ici
+
       const updatedComment = new Commentaire(this.editingCommentId, this.formMessage, new Date());
-      this.commentaireService.updateComment(idUser, this.editingCommentId, updatedComment).subscribe(
+      this.commentaireService.updateComment(this.userId, this.editingCommentId, updatedComment).subscribe(
         res => {
           console.log('Commentaire mis à jour avec succès:', res);
           this.loadPostDetails();
@@ -145,4 +168,5 @@ export class BlogDetailsComponent {
       console.error("postId is undefined or editingCommentId is null");
     }
   }
+
 }

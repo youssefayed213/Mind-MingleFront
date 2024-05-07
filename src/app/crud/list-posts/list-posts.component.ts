@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Post } from 'src/app/model/Post';
 import { PostService } from 'src/app/service/Post/post.service';
+import {HttpClient} from "@angular/common/http";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-list-posts',
@@ -11,11 +13,31 @@ export class ListPostsComponent implements OnInit {
   posts: Post[] = [];
   staticUserId: number = 3; // Exemple d'un userId statique
 
-
-  constructor(private postService: PostService) {}
+  userId: number = 0;
+  constructor(private postService: PostService, private httpClient: HttpClient,private cookieService: CookieService) {}
 
   ngOnInit(): void {
     this.getAllPosts();
+this.getUserByUsername()
+  }
+
+  getUserByUsername() {
+    const username = this.cookieService.get('username');
+
+    // Make the HTTP GET request to the provided URL
+    this.httpClient.get<any>('http://localhost:8085/minds/api/home/findByUsername/' + username)
+      .subscribe(
+        (response) => {
+          // Extract the idUser field from the response
+          this.userId = response.idUser;
+          // Log the idUser to the console
+          console.log('User ID:', this.userId);
+        },
+        (error) => {
+          // Handle errors if any
+          console.error('Error fetching user:', error);
+        }
+      );
   }
   getAllPosts(): void {
     this.postService.getAllPosts().subscribe(
@@ -31,7 +53,7 @@ export class ListPostsComponent implements OnInit {
   }
 
   toggleLike(postId: number) {
-    this.postService.toggleLike(postId, this.staticUserId).subscribe(
+    this.postService.toggleLike(postId, this.userId).subscribe(
       response => {
         console.log(response); // Afficher la réponse de la requête
       },
@@ -44,7 +66,7 @@ export class ListPostsComponent implements OnInit {
   }
 
   toggleDislike(postId: number) {
-    this.postService.toggleDislike(postId, this.staticUserId).subscribe(
+    this.postService.toggleDislike(postId, this.userId).subscribe(
       response => {
         console.log(response);
         this.getAllPosts();
@@ -71,7 +93,7 @@ export class ListPostsComponent implements OnInit {
   // Dans ListPostsComponent
 
   deletePost(idPost: number): void {
-    this.postService.deletePost(idPost, this.staticUserId).subscribe(
+    this.postService.deletePost(idPost, this.userId).subscribe(
       response => {
         console.log(response); // Afficher la réponse de la requête
         this.getAllPosts(); // Récupérer à nouveau la liste des posts après la suppression

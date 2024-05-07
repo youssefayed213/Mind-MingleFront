@@ -4,7 +4,10 @@
     <div class="row align-items-center">
       <div class="col-md-6">
         <div class="top-left text-center text-md-left">
-          <h6>Opening Hours : Saturday to Tuesday - 8am to 10pm</h6>
+
+
+          <h6>Opening Hours : Saturday to Tuesday - 8am to 17pm</h6>
+
         </div>
       </div>
       <div class="col-md-6">
@@ -64,7 +67,10 @@
               <strong>Email</strong>
               <br>
               <a href="mailto:info@medic.com">
-                <span>info@medic.com</span>
+
+
+                <span>Mind-Mingle@esprit.tn</span>
+
               </a>
             </li>
             <li class="item text-left">
@@ -73,11 +79,27 @@
               </div>
               <strong>Call Now</strong>
               <br>
-              <span>+ (88017) - 123 - 4567</span>
+
+
+              <span>+216 75 485 126</span>
             </li>
           </ul>
           <div class="link-btn text-center text-lg-right">
-            <a routerLink="/rendezvousfront" class="btn-style-one">Appointment</a>
+
+
+
+            <!-- Conditional display of Sign In / Sign Out button -->
+            <div class="button-group">
+              <ng-container *ngIf="!isLoggedIn(); else logoutButton">
+                <a routerLink="/signin" class="btn-style-one appointment-button">Login</a>
+              </ng-container>
+            <ng-template #logoutButton>
+
+              <a routerLink="/signin" (click)="logout()" class="btn-style-one appointment-button" style="color: white;">Logout</a>
+            </ng-template>
+
+            </div>
+
           </div>
         </div>
       </div>
@@ -101,14 +123,24 @@
         <li class="nav-item @@about">
           <a class="nav-link" routerLink="/about">About</a>
         </li>
+
+
+        <li class="nav-item @@groupe">
+          <a class="nav-link" routerLink="/groupe">Groupe</a>
+        </li>
+
         <li class="nav-item @@service">
           <a class="nav-link" href="service.html">Service</a>
         </li>
         <li class="nav-item @@gallery">
-          <a class="nav-link" href="gallery.html">Gallery</a>
+
+
+
+          <a class="nav-link">Gallery</a>
         </li>
         <li class="nav-item @@team">
-          <a class="nav-link" href="team.html">Team</a>
+          <a class="nav-link"  routerLink="/Event">Event</a>
+
         </li>
         <li class="nav-item @@appointment">
           <a class="nav-link" routerLink="/rendezvousfront">Appointment</a>
@@ -117,7 +149,9 @@
           <a class="nav-link dropdown-toggle" href="#!" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Blogs</a>
 
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
             <li><a class="dropdown-item @@blog" routerLink="/ListPosts">Blog</a></li>
+
             <li><a class="dropdown-item @@blogDetails" routerLink="/blogdetails">Blog Details</a></li>
             <li class="dropdown dropdown-submenu dropright">
               <a class="dropdown-item dropdown-toggle" href="#!" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sub Menu</a>

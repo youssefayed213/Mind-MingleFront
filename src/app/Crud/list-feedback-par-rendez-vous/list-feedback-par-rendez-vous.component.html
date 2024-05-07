@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Feedback Details</h3>
+        </div>
+        <div class="card-body">
+          <div *ngIf="feedback">
+            <h4>Commentaire:</h4>
+            <p>{{ feedback.commentaire }}</p>
+            <h4>Note:</h4>
+            <p>{{ feedback.note }}</p>
+            <h4>Date:</h4>
+            <p>{{ feedback.dateFeedback | date:'dd/MM/yyyy' }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-center mt-3">
+    <button class="btn btn-primary" (click)="goToList()">Back to List</button>
+  </div>
+</div>

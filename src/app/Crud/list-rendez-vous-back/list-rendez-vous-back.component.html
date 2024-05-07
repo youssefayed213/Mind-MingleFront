@@ -1,0 +1,49 @@
+<div class="container-fluid py-4" xmlns:margin-right="http://www.w3.org/1999/xhtml">
+  <div class="row">
+    <div class="col-12">
+      <div class="card my-4">
+        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+          <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+            <h6 class="text-white text-capitalize ps-3">Rendez-vous table</h6>
+          </div>
+        </div>
+        <div class="card-body px-0 pb-2">
+          <div class="table-responsive p-0">
+            <table class="table align-items-center mb-0">
+              <thead>
+              <tr>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Type</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Date</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Lieu</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
+              </tr>
+              </thead>
+              <tbody>
+
+                <tr *ngFor="let rendezvous of rendezvous; let i = index" >
+                <td>{{rendezvous.typeRdv }}</td>
+                <td>
+                  <p class="text-xs font-weight-bold mb-0">{{ rendezvous.dateRdv | date:'dd/MM/yyyy' }}</p>
+                </td>
+                <td>{{rendezvous.lieu }}</td>
+                <td class="align-middle">
+                  <!-- Bouton Supprimer -->
+                  <button class="btn btn-danger mb-0" (click)="deleteRendezvous(rendezvous.idRdv)" style="margin-right: 10px;">
+                    Supprimer
+                  </button>
+                    <button class="btn btn-warning mb-0" [routerLink]="['/update-rendez-vous-Back',rendezvous.idRdv]" style="margin-right: 10px;">
+                      <i class="fas fa-edit"></i> Modifier
+                    </button>
+                  <button class="btn btn-warning mb-0" [routerLink]="['/List-Feedback-Rendezvous',rendezvous.idRdv]" style="margin-bottom: 10px;">
+                    <i class="fas fa-edit"></i> List-Feedback
+                  </button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

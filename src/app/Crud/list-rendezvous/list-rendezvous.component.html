@@ -1,0 +1,45 @@
+<section class="team-section section">
+  <div class="container">
+    <div class="section-title text-center">
+      <h3>Our Appointments
+        <span>Bookings</span>
+      </h3>
+      <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem illo, rerum
+        <br>natus nobis deleniti doloremque minima odit voluptatibus ipsam animi?</p>
+    </div>
+    <div class="row justify-content-center">
+      <!-- Bouton pour ajouter un nouveau rendez-vous -->
+      <div class="col-lg-4 col-md-6">
+        <div class="team-member">
+          <div class="contents text-center">
+            <h4>Add New Appointment</h4>
+            <button class="btn btn-main" routerLink="/add-rendeVous">Book Appointment</button>
+          </div>
+        </div>
+      </div>
+      <!-- Affichage des rendez-vous -->
+      <div *ngFor="let rendezvous of rendezvous; let i = index" class="col-lg-4 col-md-6">
+        <div class="team-member">
+          <img loading="lazy" src="/assets/Front/images/team/doctor-2.jpg" alt="doctor" class="img-fluid">
+          <div class="contents text-center">
+            <h4>{{ rendezvous.dateRdv | date:'short' }}</h4>
+            <p>{{ rendezvous.typeRdv }}</p>
+            <p>{{ rendezvous.lieu }}</p>
+            <!-- Bouton pour supprimer ce rendez-vous -->
+            <button class="btn btn-danger" (click)="deleteRendezvous(rendezvous.idRdv)" style="margin-bottom: 10px;">
+              <i class="fas fa-trash"></i> Supprimer
+            </button>
+            <span style="margin-right: 10px;"></span>
+            <button class="btn btn-primary" [routerLink]="['/update-rendeVous', rendezvous.idRdv]" style="margin-bottom: 10px;">
+              <i class="fas fa-edit"></i> Modifier
+            </button>
+            <button class="btn btn-success" (click)="addFeedback(rendezvous.idRdv)" style="margin-right: 10px;">
+              <i class="fas fa-comment"></i> Ajouter Feedback
+            </button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

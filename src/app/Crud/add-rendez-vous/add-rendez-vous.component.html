@@ -1,0 +1,47 @@
+<!-- Section -->
+<section class="section style-three pb-0">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 order-1 order-lg-0">
+        <div class="contact-area style-two pl-0 pr-0 pr-lg-4">
+          <div class="section-title">
+            <h3>Request <span>Appointment</span></h3>
+          </div>
+          <form (ngSubmit)="addRendezVous()" [formGroup]="rendezVousForm" class="default-form contact-form">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <input formControlName="dateRdv" class="form-control" type="date" placeholder="Date" required>
+                  <i class="fa fa-calendar" aria-hidden="true"></i>
+                </div>
+                <div class="form-group">
+                  <select formControlName="typeRdv" class="form-control" required>
+                    <option value="">Sélectionnez le type de rendez-vous</option>
+                    <option value="EnLigne">En Ligne</option>
+                    <option value="EnPersonne">En Personne</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <input formControlName="lieu" class="form-control" type="text" placeholder="Lieu" required>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group text-center">
+                  <button type="button" class="btn btn-secondary" (click)="submitAndNavigate()">Ajouter</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-lg-6 mb-4 mb-lg-0 order-0 order-lg-1">
+        <div class="appointment-image-holder ml-0 ml-lg-4">
+          <figure>
+            <img loading="lazy" class="w-100" src="/assets/Front/images/background/appoinment.jpg" alt="Appointment">
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Section -->

@@ -25,11 +25,37 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css",
-              "node_modules/@fortawesome/fontawesome-free/css/all.css",
+
+
+
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/Back/js/material-dashboard.js",
+              "src/assets/Back/js/plugins/bootstrap-notify.js",
+              "src/assets/Back/js/plugins/Chart.extension.js",
+              "src/assets/Back/js/plugins/chartjs.min.js",
+              "src/assets/Back/js/plugins/countup.min.js",
+              "src/assets/Back/js/plugins/perfect-scrollbar.min.js",
+              "src/assets/Back/js/plugins/smooth-scrollbar.min.js",
+              "src/assets/Back/js/plugins/world.js",
+              "src/assets/Back/js/core/bootstrap.bundle.min.js",
+              "src/assets/Back/js/core/bootstrap.min.js",
+              "src/assets/Back/js/core/popper.min.js",
+              "src/assets/Front/plugins/jquery.min.js",
+              "src/assets/Front/plugins/bootstrap/bootstrap.min.js",
+              "src/assets/Front/plugins/fancybox/jquery.fancybox.min.js",
+              "src/assets/Front/plugins/google-map/gmap.js",
+              "src/assets/Front/plugins/jquery-ui/jquery-ui.js",
+              "src/assets/Front/plugins/slick/slick.min.js",
+              "src/assets/Front/plugins/slick/slick-animation.min.js",
+              "src/assets/Front/plugins/timePicker/timePicker.js",
+              "src/assets/Front/js/script.js"
+            ]
+
+
           },
           "configurations": {
             "production": {
@@ -91,13 +117,42 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+
+
+
+            "scripts": [
+              "src/assets/Back/js/material-dashboard.js",
+              "src/assets/Back/js/plugins/bootstrap-notify.js",
+              "src/assets/Back/js/plugins/Chart.extension.js",
+              "src/assets/Back/js/plugins/chartjs.min.js",
+              "src/assets/Back/js/plugins/countup.min.js",
+              "src/assets/Back/js/plugins/perfect-scrollbar.min.js",
+              "src/assets/Back/js/plugins/smooth-scrollbar.min.js",
+              "src/assets/Back/js/plugins/world.js",
+              "src/assets/Back/js/core/bootstrap.bundle.min.js",
+              "src/assets/Back/js/core/bootstrap.min.js",
+              "src/assets/Back/js/core/popper.min.js",
+              "src/assets/Front/plugins/jquery.min.js",
+              "src/assets/Front/plugins/bootstrap/bootstrap.min.js",
+              "src/assets/Front/plugins/fancybox/jquery.fancybox.min.js",
+              "src/assets/Front/plugins/google-map/gmap.js",
+              "src/assets/Front/plugins/jquery-ui/jquery-ui.js",
+              "src/assets/Front/plugins/slick/slick.min.js",
+              "src/assets/Front/plugins/slick/slick-animation.min.js",
+              "src/assets/Front/plugins/timePicker/timePicker.js",
+              "src/assets/Front/js/script.js"
+            ]
+
+
           }
         }
       }
     }
+
+
   },
   "cli": {
-    "analytics": false
+    "analytics": "9aae3001-c7a5-4d06-a223-dd7c2315b9b4"
+
   }
 }

@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { StatService } from "../../service/Stat/stat.service";
 import { Post } from "../../model/Post";
@@ -7,11 +8,13 @@ import { CommentaireService } from "../../service/Commentaire/commentaire.servic
 import {BadWordsService} from "../../service/BadWords/bad-words.service";
 import {BadWord} from "../../model/BadWord";
 
+
 @Component({
   selector: 'app-posts',
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.css']
 })
+
 export class PostsComponent implements OnInit {
   top3Posts: Post[] = [];
   posts: Post[] = [];
@@ -158,7 +161,6 @@ export class PostsComponent implements OnInit {
       }
     );
   }
-
 
 
 }
