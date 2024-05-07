@@ -1,0 +1,63 @@
+<section class="section style-three pb-0">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 order-1 order-lg-0">
+        <div class="contact-area style-two pl-0 pr-0 pr-lg-4">
+          <div class="section-title">
+            <h3>Update your article</h3>
+            <h2>Make necessary changes.</h2>
+          </div>
+          <form [formGroup]="BlocForm" (ngSubmit)="updatePost()" name="update_form" class="default-form contact-form" action="#" method="post">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <input class="form-control" type="text" name="titre" placeholder="Title" formControlName="titre" required>
+                  <div *ngIf="BlocForm.get('titre')?.invalid && (BlocForm.get('titre')?.dirty || BlocForm.get('titre')?.touched)" class="text-danger">
+                    {{ getErrorMessage('titre') }}
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <select class="form-control " id="typePost" formControlName="typePost">
+                    <option value="" disabled selected>Theme</option>
+                    <option *ngFor="let type of typePostOptions" [value]="type">{{ type }}</option>
+                  </select>
+                  <div *ngIf="BlocForm.get('typePost')?.invalid && (BlocForm.get('typePost')?.dirty || BlocForm.get('typePost')?.touched)" class="text-danger">
+                    {{ getErrorMessage('typePost') }}
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <textarea class="form-control" name="description" placeholder="Description" rows="4" formControlName="description"></textarea>
+                  <div *ngIf="BlocForm.get('description')?.invalid && (BlocForm.get('description')?.dirty || BlocForm.get('description')?.touched)" class="text-danger">
+                    {{ getErrorMessage('description') }}
+                  </div>
+                </div>
+                <div class="form-group border ">
+                  <label for="fileInput" class="btn btn-sm btn-default">
+                    <i class="fa fa-camera"></i> Choose File
+                  </label>
+                  <input id="fileInput" type="file" class="form-control-file d-none" (change)="onFileSelected($event)">
+                </div>
+                <div class="form-group text-center">
+                  <button type="button" class="btn btn-style-one" (click)="updatePost()" [routerLink]="['/blog-details', idPost]">Update Now</button>
+
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-lg-6 mb-4 mb-lg-0 order-0 order-lg-1">
+        <div class="appointment-image-holder ml-0 ml-lg-4">
+          <figure>
+            <img loading="lazy" class="w-100" src="/assets/Front/images/background/appoinment.jpg" alt="Appointment">
+
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

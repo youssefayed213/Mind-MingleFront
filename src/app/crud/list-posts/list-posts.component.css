@@ -1,0 +1,56 @@
+/* Styles pour les icônes Font Awesome */
+/* Modifier la taille des icônes */
+.link-btn i {
+  font-size: 30px; /* Ajustez la taille des icônes selon vos besoins */
+}
+
+/* Modifier la couleur des icônes */
+.link-btn i {
+  color: #48bdc5; /* Changez la couleur des icônes selon vos besoins */
+}
+
+/* Modifier l'arrière-plan des icônes "thumbs up" et "thumbs down" */
+.like-blue i, .dislike-blue i {
+  background-color: white; /* Mettre l'arrière-plan en blanc */
+}
+
+/* Modifier la couleur des icônes "thumbs up" et "thumbs down" lorsqu'elles sont activées */
+.like-blue i, .dislike-blue i {
+  color: #17a2b8; /* Changez la couleur des icônes activées en bleu */
+}
+
+/* Styles pour afficher le nombre de likes */
+.like-count, .dislike-count {
+  font-size: 16px; /* Ajustez la taille de la police selon vos besoins */
+  margin-top: 6px; /* Ajoutez un espacement au-dessus du nombre de likes */
+}
+
+/* Styles pour aligner les boutons à droite */
+.thumbs-buttons {
+  display: flex; /* Utilisez Flexbox pour aligner les éléments enfants */
+}
+
+/* Ajouter de l'espace entre les boutons */
+
+  /* Styles pour la corbeille (trash can) */
+.trash-icon {
+  color: #F44335; /* Changer la couleur selon vos préférences */
+}
+
+.thumbs-buttons.btn {
+  height: 50px; /* Hauteur fixe */
+  width: 50px; /* Largeur fixe */
+  display: flex; /* Utiliser Flexbox pour centrer le contenu */
+  justify-content: center; /* Centrer horizontalement */
+  align-items: center; /* Centrer verticalement */
+}
+
+
+
+.thumbs-buttons i {
+  font-size: 24px; /* Taille uniforme pour les icônes */
+}
+
+a[href='/blog-details/123'] {
+  color: #17a2b8; /* Changez la couleur ici */
+}

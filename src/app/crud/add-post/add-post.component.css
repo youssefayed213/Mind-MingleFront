@@ -1,0 +1,67 @@
+/* Styles CSS pour améliorer l'apparence du formulaire */
+
+.form-control {
+  background-color: #f8f9fa; /* Couleur de fond */
+  color: #495057; /* Couleur du texte */
+  font-size: 16px; /* Taille de la police */
+  border-radius: 5px; /* Coins arrondis */
+}
+
+.form-select {
+  background-color: #f8f9fa;
+  color: #495057;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.form-label {
+  color: #6c757d; /* Couleur du texte */
+  font-weight: bold; /* Gras */
+  font-size: 18px; /* Taille de la police */
+}
+
+.error-message {
+  color: #dc3545; /* Couleur du texte */
+  font-size: 14px; /* Taille de la police */
+}
+
+.btn-primary {
+  background-color: #007bff; /* Couleur de fond */
+  color: #fff; /* Couleur du texte */
+  font-size: 16px; /* Taille de la police */
+  border-radius: 5px; /* Coins arrondis */
+  padding: 10px 20px; /* Espacement interne */
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: #fff;
+  font-size: 16px;
+  border-radius: 5px;
+  padding: 10px 20px;
+}
+
+.custom-textarea {
+  height: 70px; /* ou toute autre valeur souhaitée */
+  width: 1110px;
+}
+
+.custom-select {
+  height: 60px; /* Définissez la hauteur souhaitée */
+}
+
+.custom-btn {
+  background-color: #7b809a; /* Couleur de fond */
+  border: none; /* Supprime la bordure */
+  color: #0c5460; /* Couleur du texte */
+  padding: 10px 20px; /* Espacement interne */
+  text-align: center; /* Alignement du texte */
+  text-decoration: none; /* Supprime le soulignement */
+  display: inline-block; /* Affichage en ligne */
+  font-size: 16px; /* Taille de police */
+  margin: 4px 2px; /* Marge extérieure */
+  cursor: pointer; /* Curseur de la souris */
+  border-radius: 10px; /* Bordure arrondie */
+  width: 180px;
+}
+
