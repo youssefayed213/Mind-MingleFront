@@ -1,0 +1,32 @@
+<!-- Section -->
+<section class="section style-three pb-0">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <div class="contact-area style-two pl-0 pr-0 pr-lg-4">
+          <div class="section-title">
+            <h3>Add <span>Feedback</span></h3>
+          </div>
+          <form (ngSubmit)="addFeedback()" [formGroup]="feedbackForm" class="default-form contact-form">
+            <div class="form-group">
+              <input formControlName="commentaire" class="form-control" type="text" placeholder="Commentaire">
+            </div>
+            <div class="form-group">
+              <select formControlName="note" class="form-control">
+                <option value="">Sélectionnez la note</option>
+                <option *ngFor="let note of noteFeedbackValues" [value]="note">{{ note }}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <input formControlName="dateFeedback" class="form-control" type="date" placeholder="Date du feedback">
+            </div>
+            <div class="form-group text-center">
+              <button type="button" class="btn-style-one" (click)="submitAndNavigate()">Submit Feedback</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Section -->

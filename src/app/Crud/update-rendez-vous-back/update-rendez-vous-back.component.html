@@ -1,0 +1,49 @@
+<!-- Section -->
+<section class="section style-three pb-0">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 order-1 order-lg-0">
+        <div class="card my-4" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; max-width: 800px;">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+            <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+              <h6 class="text-white text-capitalize ps-3">Update Appointment</h6>
+            </div>
+          </div>
+          <div class="card-body px-0 pb-2">
+            <form (ngSubmit)="updateRendezVous()" [formGroup]="rendezVousForm" class="default-form contact-form">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <input formControlName="dateRdv" class="form-control" type="date" placeholder="Date" required>
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                  </div>
+                  <div class="form-group">
+                    <select formControlName="typeRdv" class="form-control" required>
+                      <option value="">Select appointment type</option>
+                      <option value="EnLigne">EnLigne</option>
+                      <option value="EnPersonne">EnPersonne</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <input formControlName="lieu" class="form-control" type="text" placeholder="Location" required>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group text-center">
+                    <button type="button" class="btn btn-warning mb-0" (click)="submitAndNavigate()">
+                      <i class="fas fa-edit"></i> Update Appointment
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 mb-4 mb-lg-0">
+
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Section -->
